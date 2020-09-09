@@ -564,7 +564,7 @@ file1.onchange = async function (e) {
         filesMap["file1"] = file1Buffer;
         
 
-        console.log(uid, "uid")
+        console.log(uid, "sender")
         console.log(botId, "botId")
 
 

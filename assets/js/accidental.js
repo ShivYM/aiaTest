@@ -17,7 +17,7 @@ var file7 = document.getElementById('proof_addBAO');
 
 
 let url = new URL(window.location.href);
-let uid = url.searchParams.get('uid');
+let uid = url.searchParams.get('sender');
 let botId = url.searchParams.get('botId');
 
 

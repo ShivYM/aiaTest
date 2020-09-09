@@ -16,6 +16,11 @@ var file6 = document.getElementById('proof_BAO');
 var file7 = document.getElementById('proof_addBAO');
 
 
+let url = new URL(window.location.href);
+let uid = url.searchParams.get('uid');
+let botId = url.searchParams.get('botId');
+
+
 $('#privacy_consent_1').prop('checked', true);
 $('#privacy_consent_2').prop('checked', true);
 
@@ -396,8 +401,27 @@ function handleForm(event) {
     $("#err_invalidCheck_privacy").hide();
   }
 
-  if (field_firstName.length !== 0 && field_middleName.length !== 0 && field_injury.length !== 0 && field_lastName.length !== 0 && field_DOB.length !== 0 && field_mobileNum.length !== 0 && field_emailAddress.length !== 0 && field_homeAddress.length !== 0 && field_DOA.length !== 0 && field_TOA.length !== 0 && field_POA.length !== 0 && $('#invalidCheck_basic').is(':checked') && $('#invalidCheck_privacy').is(':checked') && validateEmail(field_emailAddress) && (specFirstName == false) && (specMiddleName == false) && (specLastName == false) && (numFirstName == false) && (numMiddleName == false) && (numLastName == false) && (numMobile == true)) {
+  if (field_firstName.length !== 0 && field_middleName.length !== 0 && field_injury.length !== 0 && field_lastName.length !== 0 && field_DOB.length !== 0 && field_mobileNum.length !== 0 && field_emailAddress.length !== 0 && field_homeAddress.length !== 0 && field_DOA.length !== 0 && field_TOA.length !== 0 && field_POA.length !== 0 && $('#invalidCheck_basic').is(':checked') && validateEmail(field_emailAddress) && (specFirstName == false) && (specMiddleName == false) && (specLastName == false) && (numFirstName == false) && (numMiddleName == false) && (numLastName == false) && (numMobile == true)) {
 
+    let pConsentCheck1 = !$('#privacy_consent_1').is(':checked')
+    let pConsentCheck2 = !$('#privacy_consent_2').is(':checked');
+
+    if ((pConsentCheck1) && (pConsentCheck2)) {
+      $("#err_privacy_consent1").text('Please select both the fields first');
+      $("#err_privacy_consent1").show();
+      $("#err_privacy_consent2").text('Please select both the fields first');
+      $("#err_privacy_consent2").show();
+      /* $('#privacy_consent_1')[0].scrollIntoView(true); */
+    }
+    else if (pConsentCheck1) {
+      $("#err_privacy_consent1").text('Please select both the fields first');
+      $("#err_privacy_consent1").show();
+      /* $('#privacy_consent_1')[0].scrollIntoView(true); */
+    } else if (pConsentCheck2) {
+      $("#err_privacy_consent2").text('Please select both the fields first');
+      $("#err_privacy_consent2").show();
+      /* $('#privacy_consent_1')[0].scrollIntoView(true); */
+    } else {
       const data = {
         field_firstName,
         field_middleName,
@@ -426,7 +450,7 @@ function handleForm(event) {
       /*  $('#requirements')[0].scrollIntoView(true); */
 
       console.log('Data -> ', data)
-    
+    }
   } else {
     $('#popUp').modal('show');
   }
@@ -538,15 +562,38 @@ file1.onchange = async function (e) {
         console.log("file buffer : ")
         console.log(file1Buffer);
         filesMap["file1"] = file1Buffer;
+        
 
-        window.parent.postMessage(JSON.stringify({
-          event_code: 'ym-client-event', data: JSON.stringify({
-            event: {
-              code: "personalinfo",
-              data: JSON.stringify(filesMap)
-            }
-          })
-        }), '*');
+        console.log(uid, "uid")
+        console.log(botId, "botId")
+
+
+        let api = {
+          url: 'https://app.yellowmessenger.com/integrations/yellowmessenger/receive',
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: {
+            "from": uid,
+            "to": botId,
+            "message": JSON.stringify({'type': "file_upload",
+            'file_type': "file1",
+            'data' : file1Buffer})
+          }
+        };
+
+        console.log("executing API")
+        await axios(api).then((res) => console.log(res.data)).catch((err) => console.log(err));
+        console.log("After API")
+        // window.parent.postMessage(JSON.stringify({
+        //   event_code: 'ym-client-event', data: JSON.stringify({
+        //     event: {
+        //       code: "personalinfo",
+        //       data: JSON.stringify(filesMap)
+        //     }
+        //   })
+        // }), '*');
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_1").hide();
@@ -866,13 +913,6 @@ function buttonSubmitClicked(event) {
     return;
   }
 
-  if (!$('#upload_invalidCheck_2').is(':checked')) {
-    $("#upload_warning").text('Please don’t forget to tick the box is certify the accuracy of the documents submitted');
-    $("#warning_parent").show();
-    $('#popUp').modal('show');
-    return;
-}
-
   const upload_data = {
     upload_file_1: file1.value,
     upload_file_2: file2.value,
@@ -880,7 +920,7 @@ function buttonSubmitClicked(event) {
     upload_file_4: file4.value,
     upload_file_5: file5.value,
     aia_Philam_Life_Checkbox: $('#upload_invalidCheck_1').is(':checked'),
-    insurance_Checkbox: $('#upload_invalidCheck_2').is(':checked') 
+    /*  insurance_Checkbox: $('#upload_invalidCheck_2').is(':checked') */
   }
 
   $("#step2").addClass("active");

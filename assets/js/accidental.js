@@ -99,7 +99,7 @@ function setCountryCode() {
 const handleImageUpload = (files, fileName) => {
   // const files = event.target.files
   const formData = new FormData()
-  formData.append('myFile1', files[0])
+  formData.append('myFile1', files)
   fetch('https://staging.yellowmessenger.com/components/tataAia/upload', {
     method: 'POST',
     body: formData

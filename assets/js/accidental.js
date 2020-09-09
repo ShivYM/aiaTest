@@ -17,6 +17,7 @@ var file7 = document.getElementById('proof_addBAO');
 
 
 let url = new URL(window.location.href);
+let referenceNumber = url.searchParams.get('refNumber');
 let uid = url.searchParams.get('sender');
 let botId = url.searchParams.get('botId');
 
@@ -48,7 +49,7 @@ let FilesInformation = {};
 let filesList = [];
 let filesMap = {};
 let claimType, causeOfLoss, govIdFront, govIdBack, apsFile, narrationReport, officialReceipts;
-let file1Buffer, file2Buffer, file3Buffer, file4Buffer, file5Buffer, file6Buffer, file7Buffer, file8Buffer;
+let fileUpload1, fileUpload2, fileUpload3, fileUpload4, fileUpload5, fileUpload6, fileUpload7, fileUpload8;
 basicInformation["CompanyCode"] = "PAL/BPLAC";
 basicInformation["Claim Type "] = "LIVING";
 basicInformation["CauseOfLoss"] = "Accident";
@@ -78,6 +79,57 @@ function setCountryCode() {
     $("select").val($('select option:selected').val());
     $("select option").css({ "background-color": "", "color": "" });
   });
+}
+
+
+/**
+ * 
+ * for individual file conversions and saving to SFTP
+ * send formdata of the file, along with the name
+ * 
+ * on the sending side however, iterate over the list of files,
+ * for each file, call this function
+ */
+
+/**
+ * Code refactor for this function
+ * instead of sending list of file as input, for final list of files, send the form data with all the files in it
+ * Along with that, send the file name that needs to be saved.
+ */
+const handleImageUpload = (files, fileName) => {
+  // const files = event.target.files
+  const formData = new FormData()
+  formData.append('myFile1', files[0])
+  formData.append('myFile2', files[1])
+  fetch('https://staging.yellowmessenger.com/components/tataAia/upload', {
+    method: 'POST',
+    body: formData
+  })
+    .then((response) => response.json())
+    .then(response => {
+      console.log(response)
+      var decoded = atob(response.data);
+      var saveByteArray = function (data, name) {
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        var blob = new Blob(data, { type: "application/pdf" }),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+      var byteNumbers = Array(decoded.length);
+      for (i = 0; i < decoded.length; i++) {
+        byteNumbers[i] = decoded.charCodeAt(i);
+      }
+      var byteArray = new Uint8Array(byteNumbers);
+      saveByteArray([byteArray], fileName + ".pdf");
+    })
+    .catch(error => {
+      console.log(error)
+    })
 }
 
 const getBuffer = file => new Promise((resolve, reject) => {
@@ -541,6 +593,9 @@ const isFileSizeValid = (file) => {
 };
 
 file1.onchange = async function (e) {
+  let docType="LIDC001";
+  let tranType = "CIF";
+  console.log("file 1");
   $("#file_upload_cancle_1").hide();
   $("#file_Upload_Tick_1").hide();
   console.log("Starting");
@@ -558,42 +613,16 @@ file1.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await toBase64(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file1"] = file1Buffer;
+        // file1Buffer = await toBase64(file);
+        // console.log("file buffer : ")
+        // console.log(file1Buffer);
+        // filesMap["file1"] = file1Buffer;
         
+        fileUpload1 = file;
+        filesList.push(fileUpload1);
+        let fileName = referenceNumber.toString()+"_"+docType+"_"+tranType;
+        handleImageUpload(file, fileName);
 
-        console.log(uid, "sender")
-        console.log(botId, "botId")
-
-
-        let api = {
-          url: 'https://app.yellowmessenger.com/integrations/yellowmessenger/receive',
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          data: {
-            "from": uid,
-            "to": botId,
-            "message": JSON.stringify({'type': "file_upload",
-            'file_type': "file1",
-            'data' : file1Buffer})
-          }
-        };
-
-        console.log("executing API")
-        await axios(api).then((res) => console.log(res.data)).catch((err) => console.log(err));
-        console.log("After API")
-        // window.parent.postMessage(JSON.stringify({
-        //   event_code: 'ym-client-event', data: JSON.stringify({
-        //     event: {
-        //       code: "personalinfo",
-        //       data: JSON.stringify(filesMap)
-        //     }
-        //   })
-        // }), '*');
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_1").hide();
@@ -616,6 +645,7 @@ file1.onchange = async function (e) {
 };
 
 file2.onchange = async function (e) {
+  console.log("file 2");
   $("#file_upload_cancle_2").hide();
   $("#file_Upload_Tick_2").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -632,10 +662,8 @@ file2.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file2"] = file1Buffer;
+        fileUpload2 = file;
+        filesList.push(fileUpload2);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_2").hide();
@@ -658,6 +686,7 @@ file2.onchange = async function (e) {
 };
 
 file3.onchange = async function (e) {
+  console.log("file 3");
   $("#file_upload_cancle_3").hide();
   $("#file_Upload_Tick_3").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -674,10 +703,7 @@ file3.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file3"] = file1Buffer;
+        fileUpload3 = file;
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_3").hide();
@@ -700,6 +726,7 @@ file3.onchange = async function (e) {
 };
 
 file4.onchange = async function (e) {
+  console.log("file 4");
   $("#file_upload_cancle_4").hide();
   $("#file_Upload_Tick_4").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -717,10 +744,7 @@ file4.onchange = async function (e) {
           proceedScan(file, buttonNum);
         }
 
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file4"] = file1Buffer;
+        fileUpload4 = file;
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_4").hide();
@@ -743,6 +767,7 @@ file4.onchange = async function (e) {
 };
 
 file5.onchange = async function (e) {
+  console.log("file 5");
   $("#file_upload_cancle_5").hide();
   $("#file_Upload_Tick_5").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -759,10 +784,7 @@ file5.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file5"] = file1Buffer;
+        fileUpload5 = file;
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_5").hide();
@@ -785,6 +807,7 @@ file5.onchange = async function (e) {
 };
 
 file6.onchange = async function (e) {
+  console.log("file 6");
   $("#file_upload_cancle_6").hide();
   $("#file_Upload_Tick_6").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -801,10 +824,7 @@ file6.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file6"] = file1Buffer;
+        fileUpload6 = file;
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_6").hide();
@@ -827,6 +847,7 @@ file6.onchange = async function (e) {
 };
 
 file7.onchange = async function (e) {
+  console.log("file 7");
   $("#file_upload_cancle_7").hide();
   $("#file_Upload_Tick_7").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -843,10 +864,7 @@ file7.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        file1Buffer = await getBuffer(file);
-        console.log("file buffer : ")
-        console.log(file1Buffer);
-        filesMap["file7"] = file1Buffer;
+        fileUpload7 = file;
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_7").hide();
@@ -867,8 +885,6 @@ file7.onchange = async function (e) {
       this.value = "";
   }
 };
-
-
 
 function buttonSubmitClicked(event) {
   event.preventDefault();
@@ -932,8 +948,6 @@ function buttonSubmitClicked(event) {
 
   console.log('upload data --> ', upload_data);
 }
-
-
 
 function handleAccountInfo(event) {
   event.preventDefault();
@@ -1055,6 +1069,11 @@ function handleAccountInfo(event) {
         }
       })
     }), '*');
+
+
+
+    // handleImageUpload(filesList);
+
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");
     $("#step3").addClass("done");

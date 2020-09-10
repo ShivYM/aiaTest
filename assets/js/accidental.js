@@ -48,6 +48,7 @@ let BankDetails = {};
 let FilesInformation = {};
 let filesList = [];
 let filesMap = {};
+let docType, tranType;
 let claimType, causeOfLoss, govIdFront, govIdBack, apsFile, narrationReport, officialReceipts;
 let fileUpload1, fileUpload2, fileUpload3, fileUpload4, fileUpload5, fileUpload6, fileUpload7, fileUpload8;
 basicInformation["CompanyCode"] = "PAL/BPLAC";
@@ -592,8 +593,8 @@ const isFileSizeValid = (file) => {
 };
 
 file1.onchange = async function (e) {
-  let docType="LIDC001";
-  let tranType = "CIF";
+  docType = "LIDC001";
+  tranType = "CIF";
   console.log("file 1");
   $("#file_upload_cancle_1").hide();
   $("#file_Upload_Tick_1").hide();
@@ -616,10 +617,10 @@ file1.onchange = async function (e) {
         // console.log("file buffer : ")
         // console.log(file1Buffer);
         // filesMap["file1"] = file1Buffer;
-        
+
         // fileUpload1 = file;
-        filesList.push(fileUpload1);
-        let fileName = referenceNumber.toString()+"_"+docType+"_"+tranType;
+        filesList.push(file);
+        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('myFile1', file)
         handleImageUpload(formData, fileName);
@@ -646,7 +647,8 @@ file1.onchange = async function (e) {
 };
 
 file2.onchange = async function (e) {
-  console.log("file 2");
+  docType = "LIDC001";
+  tranType = "CIB";
   $("#file_upload_cancle_2").hide();
   $("#file_Upload_Tick_2").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -663,8 +665,15 @@ file2.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        fileUpload2 = file;
-        filesList.push(fileUpload2);
+        // fileUpload2 = file;
+        // filesList.push(fileUpload2);
+
+        filesList.push(file);
+        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        const formData = new FormData()
+        formData.append('myFile2', file)
+        handleImageUpload(formData, fileName);
+
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_2").hide();
@@ -688,6 +697,8 @@ file2.onchange = async function (e) {
 
 file3.onchange = async function (e) {
   console.log("file 3");
+  docType = "LIDC034";
+  tranType = "APSF";
   $("#file_upload_cancle_3").hide();
   $("#file_Upload_Tick_3").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -704,7 +715,11 @@ file3.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        fileUpload3 = file;
+        filesList.push(file);
+        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        const formData = new FormData()
+        formData.append('myFile3', file)
+        handleImageUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_3").hide();
@@ -728,6 +743,8 @@ file3.onchange = async function (e) {
 
 file4.onchange = async function (e) {
   console.log("file 4");
+  docType = "LIDC036";
+  tranType = "PIR";
   $("#file_upload_cancle_4").hide();
   $("#file_Upload_Tick_4").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -745,7 +762,11 @@ file4.onchange = async function (e) {
           proceedScan(file, buttonNum);
         }
 
-        fileUpload4 = file;
+        filesList.push(file);
+        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        const formData = new FormData()
+        formData.append('myFile4', file)
+        handleImageUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_4").hide();
@@ -769,6 +790,8 @@ file4.onchange = async function (e) {
 
 file5.onchange = async function (e) {
   console.log("file 5");
+  docType = "LIDC035";
+  tranType = "MR";
   $("#file_upload_cancle_5").hide();
   $("#file_Upload_Tick_5").hide();
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -785,7 +808,11 @@ file5.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        fileUpload5 = file;
+        filesList.push(file);
+        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        const formData = new FormData()
+        formData.append('myFile5', file)
+        handleImageUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_5").hide();
@@ -1070,10 +1097,6 @@ function handleAccountInfo(event) {
         }
       })
     }), '*');
-
-
-
-    // handleImageUpload(filesList);
 
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");

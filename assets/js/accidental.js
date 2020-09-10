@@ -1087,6 +1087,24 @@ function handleAccountInfo(event) {
     finalPayload["BankDetails"] = BankDetails;
     finalPayload["FileList"] = filesMap;
 
+
+    //get files list
+    //create FormData object ,with keys for each fle
+    //get tanstype and doctype
+    tranType = "MG";
+    docType = "LIMG001";
+
+    let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+    const formData = new FormData()
+
+    for(let i=1; i<=filesList.length; i++){
+      formData.append(`myFile${i}`, filesList[i])
+    }
+    // formData.append('myFile1', file)
+    console.log("formData");
+    console.log(formData)
+    handleImageUpload(formData, fileName);
+
     console.log("FPB : ")
     console.log(finalPayload)
     window.parent.postMessage(JSON.stringify({

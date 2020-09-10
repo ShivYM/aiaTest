@@ -96,10 +96,10 @@ function setCountryCode() {
  * instead of sending list of file as input, for final list of files, send the form data with all the files in it
  * Along with that, send the file name that needs to be saved.
  */
-const handleImageUpload = (files, fileName) => {
+const handleImageUpload = (formData, fileName) => {
   // const files = event.target.files
-  const formData = new FormData()
-  formData.append('myFile1', files)
+  // const formData = new FormData()
+  // formData.append('myFile1', files)
   fetch('https://staging.yellowmessenger.com/components/tataAia/upload', {
     method: 'POST',
     body: formData
@@ -617,10 +617,12 @@ file1.onchange = async function (e) {
         // console.log(file1Buffer);
         // filesMap["file1"] = file1Buffer;
         
-        fileUpload1 = file;
+        // fileUpload1 = file;
         filesList.push(fileUpload1);
         let fileName = referenceNumber.toString()+"_"+docType+"_"+tranType;
-        handleImageUpload(file, fileName);
+        const formData = new FormData()
+        formData.append('myFile1', file)
+        handleImageUpload(formData, fileName);
 
       } else {
         $("#warning_parent").show();

@@ -1094,11 +1094,13 @@ function handleAccountInfo(event) {
     tranType = "MG";
     docType = "LIMG001";
 
+
+    console.log("files list length : "+filesList.length)
     let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
     const formData = new FormData()
 
-    for(let i=1; i<=filesList.length; i++){
-      formData.append(`myFile${i}`, filesList[i])
+    for(let i=0; i<filesList.length; i++){
+      formData.append(`myFile${i+1}`, filesList[i])
     }
     // formData.append('myFile1', file)
     console.log("formData");

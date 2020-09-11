@@ -305,21 +305,6 @@ function handleForm(event) {
   var field_TOA = $("#field_TOA").val();
   var field_POA = $("#field_POA").val();
 
-  InsuredInformation["FirstName"] = field_firstName;
-  InsuredInformation["MiddleName"] = field_firstName;
-  InsuredInformation["LastName"] = field_firstName;
-  InsuredInformation["Suffix"] = field_firstName;
-  InsuredInformation["DateOfBirth"] = field_firstName;
-  InsuredInformation["CountryCode"] = field_firstName;
-  InsuredInformation["PhoneNumber"] = field_firstName;
-  InsuredInformation["EmailAddress"] = field_firstName;
-  InsuredInformation["HomeAddress"] = field_firstName;
-  InsuredInformation["InjuryDetails"] = field_firstName;
-  InsuredInformation["AccidentDate"] = field_firstName;
-  InsuredInformation["AccidentTime"] = field_firstName;
-  InsuredInformation["AccidentPlace"] = field_firstName;
-  InsuredInformation["FirstName"] = field_firstName;
-
   var specFirstName = specialcharacterValidation(field_firstName);
   var specMiddleName = specialcharacterValidation(field_middleName);
   var specLastName = specialcharacterValidation(field_lastName);
@@ -501,7 +486,36 @@ function handleForm(event) {
       $('#requirements').show();
       /*  $('#requirements')[0].scrollIntoView(true); */
 
+      InsuredInformation["FirstName"] = field_firstName;
+      InsuredInformation["MiddleName"] = field_firstName;
+      InsuredInformation["LastName"] = field_firstName;
+      InsuredInformation["Suffix"] = field_firstName;
+      InsuredInformation["DateOfBirth"] = field_firstName;
+      InsuredInformation["CountryCode"] = field_firstName;
+      InsuredInformation["PhoneNumber"] = field_firstName;
+      InsuredInformation["EmailAddress"] = field_firstName;
+      InsuredInformation["HomeAddress"] = field_firstName;
+      InsuredInformation["InjuryDetails"] = field_firstName;
+      InsuredInformation["AccidentDate"] = field_firstName;
+      InsuredInformation["AccidentTime"] = field_firstName;
+      InsuredInformation["AccidentPlace"] = field_firstName;
+      InsuredInformation["FirstName"] = field_firstName;
+
       console.log('Data -> ', data)
+
+      let stageOneData = {
+        stage : 1,
+        referenceNumber : referenceNumber,
+        data : InsuredInformation
+      }
+      window.parent.postMessage(JSON.stringify({
+        event_code: 'ym-client-event', data: JSON.stringify({
+          event: {
+            code: "personalinfo",
+            data: JSON.stringify(stageOneData)
+          }
+        })
+      }), '*');
     }
   } else {
     $('#popUp').modal('show');
@@ -975,6 +989,20 @@ function buttonSubmitClicked(event) {
   /*   $('#payment')[0].scrollIntoView(true); */
 
   console.log('upload data --> ', upload_data);
+  let stageTwoData = {
+    stage : 2,
+    referenceNumber : referenceNumber
+  }
+  window.parent.postMessage(JSON.stringify({
+    event_code: 'ym-client-event', data: JSON.stringify({
+      event: {
+        code: "personalinfo",
+        data: JSON.stringify(stageTwoData)
+      }
+    })
+  }), '*');
+
+
 }
 
 function handleAccountInfo(event) {
@@ -1086,22 +1114,20 @@ function handleAccountInfo(event) {
     finalPayload["InsuredInformation"] = InsuredInformation;
     finalPayload["BankDetails"] = BankDetails;
     finalPayload["FileList"] = filesMap;
+    finalPayload["stage"] = 3;
+    finalPayload["referenceNumber"] = referenceNumber;
 
-
-    //get files list
-    //create FormData object ,with keys for each fle
-    //get tanstype and doctype
     tranType = "MG";
     docType = "LIMG001";
 
-
-    console.log("files list length : "+filesList.length)
+    console.log("files list length : " + filesList.length)
     let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
     const formData = new FormData()
 
-    for(let i=0; i<filesList.length; i++){
-      formData.append(`myFile${i+1}`, filesList[i])
+    for (let i = 0; i < filesList.length; i++) {
+      formData.append(`myFile${i + 1}`, filesList[i])
     }
+    formData.append(`myFile${filesList.length}`, fileUpload6);
     // formData.append('myFile1', file)
     console.log("formData");
     console.log(formData)

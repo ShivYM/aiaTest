@@ -314,6 +314,7 @@ function handleForm(event) {
   var numMobile = onlyNumberValidate(field_mobileNum);
 
 
+
   if (field_firstName.length === 0) {
     $("#err_field_firstName").text('Field is empty');
     $("#err_field_firstName").show();
@@ -486,27 +487,27 @@ function handleForm(event) {
       $('#requirements').show();
       /*  $('#requirements')[0].scrollIntoView(true); */
 
-      InsuredInformation["FirstName"] = field_firstName;
-      InsuredInformation["MiddleName"] = field_firstName;
-      InsuredInformation["LastName"] = field_firstName;
-      InsuredInformation["Suffix"] = field_firstName;
-      InsuredInformation["DateOfBirth"] = field_firstName;
-      InsuredInformation["CountryCode"] = field_firstName;
-      InsuredInformation["PhoneNumber"] = field_firstName;
-      InsuredInformation["EmailAddress"] = field_firstName;
-      InsuredInformation["HomeAddress"] = field_firstName;
-      InsuredInformation["InjuryDetails"] = field_firstName;
-      InsuredInformation["AccidentDate"] = field_firstName;
-      InsuredInformation["AccidentTime"] = field_firstName;
-      InsuredInformation["AccidentPlace"] = field_firstName;
-      InsuredInformation["FirstName"] = field_firstName;
-
       console.log('Data -> ', data)
 
+      InsuredInformation["FirstName"] = field_firstName;
+      InsuredInformation["MiddleName"] = field_middleName;
+      InsuredInformation["LastName"] = field_lastName;
+      InsuredInformation["Suffix"] = field_lastName_Suffix;
+      InsuredInformation["DateOfBirth"] = field_DOB;
+      InsuredInformation["CountryCode"] = $("select#inlineFormCustomSelect option").filter(":selected").val();
+      InsuredInformation["PhoneNumber"] = field_mobileNum;
+      InsuredInformation["EmailAddress"] = field_emailAddress;
+      InsuredInformation["HomeAddress"] = field_homeAddress;
+      InsuredInformation["InjuryDetails"] = field_firstName;
+      InsuredInformation["AccidentDate"] = field_DOA;
+      InsuredInformation["AccidentTime"] = field_TOA;
+      InsuredInformation["AccidentPlace"] = field_POA;
+      // InsuredInformation["FirstName"] = field_firstName;
+
       let stageOneData = {
-        stage : 1,
-        referenceNumber : referenceNumber,
-        data : InsuredInformation
+        stage: 1,
+        referenceNumber: referenceNumber,
+        data: InsuredInformation
       }
       window.parent.postMessage(JSON.stringify({
         event_code: 'ym-client-event', data: JSON.stringify({
@@ -990,8 +991,8 @@ function buttonSubmitClicked(event) {
 
   console.log('upload data --> ', upload_data);
   let stageTwoData = {
-    stage : 2,
-    referenceNumber : referenceNumber
+    stage: 2,
+    referenceNumber: referenceNumber
   }
   window.parent.postMessage(JSON.stringify({
     event_code: 'ym-client-event', data: JSON.stringify({

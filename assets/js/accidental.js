@@ -1,9 +1,3 @@
-/* var stepper2
-var stepper3
-var stepper4
-var stepperForm
-var stepperFormEl */
-
 var form = document.getElementById("accidental__form");
 var form_Bank = document.getElementById("bank_form");
 var listCheckBox = document.querySelector('#upload_invalidCheck_1');
@@ -505,7 +499,7 @@ function handleForm(event) {
       // InsuredInformation["FirstName"] = field_firstName;
 
       let stageOneData = {
-        stage: 1,
+        stageOne: true,
         referenceNumber: referenceNumber,
         data: InsuredInformation
       }
@@ -628,12 +622,7 @@ file1.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
-        // file1Buffer = await toBase64(file);
-        // console.log("file buffer : ")
-        // console.log(file1Buffer);
-        // filesMap["file1"] = file1Buffer;
 
-        // fileUpload1 = file;
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
@@ -711,7 +700,6 @@ file2.onchange = async function (e) {
 };
 
 file3.onchange = async function (e) {
-  console.log("file 3");
   docType = "LIDC034";
   tranType = "APSF";
   $("#file_upload_cancle_3").hide();
@@ -730,6 +718,7 @@ file3.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum);
         }
+
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
@@ -757,7 +746,6 @@ file3.onchange = async function (e) {
 };
 
 file4.onchange = async function (e) {
-  console.log("file 4");
   docType = "LIDC036";
   tranType = "PIR";
   $("#file_upload_cancle_4").hide();
@@ -991,7 +979,7 @@ function buttonSubmitClicked(event) {
 
   console.log('upload data --> ', upload_data);
   let stageTwoData = {
-    stage: 2,
+    stageTwo: true,
     referenceNumber: referenceNumber
   }
   window.parent.postMessage(JSON.stringify({
@@ -1115,7 +1103,7 @@ function handleAccountInfo(event) {
     finalPayload["InsuredInformation"] = InsuredInformation;
     finalPayload["BankDetails"] = BankDetails;
     finalPayload["FileList"] = filesMap;
-    finalPayload["stage"] = 3;
+    finalPayload["stageThree"] = true;
     finalPayload["referenceNumber"] = referenceNumber;
 
     tranType = "MG";
@@ -1128,7 +1116,7 @@ function handleAccountInfo(event) {
     for (let i = 0; i < filesList.length; i++) {
       formData.append(`myFile${i + 1}`, filesList[i])
     }
-    formData.append(`myFile${filesList.length}`, fileUpload6);
+    // formData.append(`myFile${filesList.length}`, fileUpload6);
     // formData.append('myFile1', file)
     console.log("formData");
     console.log(formData)

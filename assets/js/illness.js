@@ -75,6 +75,41 @@ function setCountryCode() {
 }
 
 
+const handleImageUpload = (formData, fileName) => {
+    // const files = event.target.files
+    // const formData = new FormData()
+    // formData.append('myFile1', files)
+    fetch('https://staging.yellowmessenger.com/components/tataAia/upload', {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => response.json())
+      .then(response => {
+        console.log(response)
+        var decoded = atob(response.data);
+        var saveByteArray = function (data, name) {
+          var a = document.createElement("a");
+          document.body.appendChild(a);
+          a.style = "display: none";
+          var blob = new Blob(data, { type: "application/pdf" }),
+            url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = name;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        };
+        var byteNumbers = Array(decoded.length);
+        for (i = 0; i < decoded.length; i++) {
+          byteNumbers[i] = decoded.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        saveByteArray([byteArray], fileName + ".pdf");
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);

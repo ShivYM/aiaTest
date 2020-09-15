@@ -9,6 +9,32 @@
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css"> -->
 	<link rel="stylesheet" href="./assets/css/styles.css">
 	<title>Yellow Messenger</title>
+	<!-- custom datePicker for safari -->
+	<script type="text/javascript">
+        var datefield=document.createElement("input")
+        datefield.setAttribute("type", "date")
+        if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+            document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+            document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+            document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
+            document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />\n')
+            document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />\n')
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"><\/script>\n')
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"><\/script>\n')
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"><\/script>\n')
+        }
+    </script>
+    <script>
+        if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+        jQuery(function($){ //on document.ready
+			$('#field_DOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+			$('#field_BeneficiaryDOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+			$('#field_addBeneficiaryDOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+			$('#field_DOID').datepicker({maxDate:0, changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+            $('#field_TOA').timepicker({controlType: 'select', oneLine: true, timeInput: true,timeFormat: 'hh:mm tt'});
+        })
+    }
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -43,21 +69,21 @@
 							<div id="step1" class="md-step active">
 								<div class="md-step-circle active"><span>1</span>
 								</div>
-								<div class="md-step-title d-none d-sm-block">Fill out the form</div>
+								<div class="md-step-title">Fill out the form</div>
 								<div class="md-step-bar-left"></div>
 								<div class="md-step-bar-right"></div>
 							</div>
 							<div id="step2" class="md-step">
 								<div class="md-step-circle"><span>2</span>
 								</div>
-								<div class="md-step-title d-none d-sm-block">Submit your requirements</div>
+								<div class="md-step-title">Submit your requirements</div>
 								<div class="md-step-bar-left"></div>
 								<div class="md-step-bar-right"></div>
 							</div>
 							<div id="step3" class="md-step">
 								<div class="md-step-circle"><span>3</span>
 								</div>
-								<div class="md-step-title d-none d-sm-block">Get your reference number</div>
+								<div class="md-step-title">Get your reference number</div>
 								<div class="md-step-bar-left"></div>
 								<div class="md-step-bar-right"></div>
 							</div>
@@ -98,23 +124,23 @@
 														<div class="form-row">
 															<div class="col-md-12 form__tags">
 																<label for="validationCustom01">What is the Insured’s first name?</label>
-																<input type="text" class="input__box" id="field_firstName" value="" placeholder="First Name" tabindex="1" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																<input type="text" class="input__box" maxlength="30" id="field_firstName" value="" placeholder="First Name" tabindex="1" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																<div id="err_field_firstName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="validationCustom02">What is the Insured’s middle name?</label>
-																<input type="text" class="input__box" id="field_middleName" value="" placeholder="Middle Name" tabindex="2" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																<input type="text" class="input__box" maxlength="30" id="field_middleName" value="" placeholder="Middle Name" tabindex="2" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																<div id="err_field_middleName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="validationCustom02">What is the Insured’s last name?</label>
 																<div class="row">
 																	<div class="col-md-9">
-																		<input type="text" class="input__box" id="field_lastName" value="" placeholder="Last Name" tabindex="3" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																		<input type="text" class="input__box" maxlength="30" id="field_lastName" value="" placeholder="Last Name" tabindex="3" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																		<div id="err_field_lastName" class="error"></div>
 																	</div>
 																	<div class="col-md-3">
-																		<input type="text" class="input__box" id="field_lastName_Suffix" value="" placeholder="Suffix" tabindex="4" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																		<input type="text" class="input__box" maxlength="3" id="field_lastName_Suffix" value="" placeholder="Suffix" tabindex="4" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 3)" required />
 																		<div id="err_field_lastName_Suffix" class="error"></div>
 																	</div>
 																</div>
@@ -125,12 +151,12 @@
 														<div class="form-row">
 															<div class="col-md-12 form__tags">
 																<label for="field_DOB">What is the Insured’s date of birth?</label>
-																<input type="date" class="input__box" id="field_DOB" value="" placeholder="Date of Birth" tabindex="5" />
+																<input type="date" class="input__box" id="field_DOB" value="" onkeypress="return false" placeholder="Date of Birth" tabindex="5" />
 																<div id="err_field_DOB" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_DOID">What is the date of the Insured’s death?</label>
-																<input type="date" class="input__box" id="field_DOID" value="" placeholder="Date of Insured’s Death" tabindex="6" />
+																<input type="date" class="input__box" id="field_DOID" value="" onkeypress="return false" placeholder="Date of Insured’s Death" tabindex="6" />
 																<div id="err_field_DOID" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
@@ -153,23 +179,23 @@
 														<div class="form-row">
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryFirstName">What is the Beneficiary’s first name?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryFirstName" value="" placeholder="First Name" tabindex="8" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																<input type="text" class="input__box" maxlength="30" id="field_BeneficiaryFirstName" value="" placeholder="First Name" tabindex="8" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																<div id="err_field_BeneficiaryFirstName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryMiddleName">What is the Beneficiary’s middle name?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryMiddleName" value="" placeholder="Middle Name (If married, provide maiden name)" tabindex="9" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																<input type="text" class="input__box" maxlength="30" id="field_BeneficiaryMiddleName" value="" placeholder="Middle Name (If married, provide maiden name)" tabindex="9" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																<div id="err_field_BeneficiaryMiddleName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryLastName">What is the Beneficiary’s last name?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryLastName" value="" placeholder="Last Name (if married, provide maiden name)" tabindex="10" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+																<input type="text" class="input__box" maxlength="30" id="field_BeneficiaryLastName" value="" placeholder="Last Name (if married, provide maiden name)" tabindex="10" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 																<div id="err_field_BeneficiaryLastName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryMobileNumber">What is the Beneficiary’s mobile number?</label>
 																<div class="row">
-																	<div class="col-md-3">
+																	<div class="col-md-4">
 																		<select class="custom-select-container mr-sm-2" id="field_BeneficiaryMobileNumberSelect" tabindex="11">
 																			<option value="63" style="display:none">+63</option>
 																			<option data-countryCode="PH" value="63">Philippines (+63)</option>
@@ -391,20 +417,20 @@
 																			</optgroup>
 																		</select>
 																	</div>
-																	<div class="col-md-9">
-																		<input type="text" class="input__box" id="field_BeneficiaryMobileNum" value="" placeholder="Mobile Number" onkeypress="return isNumber(event)" tabindex="12" required />
+																	<div class="col-md-8">
+																		<input type="text" class="input__box" maxlength="10" id="field_BeneficiaryMobileNum" value="" placeholder="Mobile Number" onkeypress="return isNumber(event)  && check_Mobile_Length(event, 10)" tabindex="12" required />
 																		<div id="err_field_BeneficiaryMobileNum" class="error"></div>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryEmailAddress">What is the Beneficiary’s email address?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryEmailAddress" value="" placeholder="Email Address" tabindex="13" onkeypress="removeErr(event)" required />
+																<input type="text" class="input__box" maxlength="40" id="field_BeneficiaryEmailAddress" value="" placeholder="Email Address" tabindex="13" onkeypress="removeErr(event) || checkLength(event, 40)" required />
 																<div id="err_field_BeneficiaryEmailAddress" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryHomeAddress">What is the Beneficiary’s home address?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryHomeAddress" value="" placeholder="Home Address" tabindex="14" onkeypress="removeErr(event)" required />
+																<input type="text" class="input__box" maxlength="250" id="field_BeneficiaryHomeAddress" value="" placeholder="Home Address" tabindex="14" onkeypress="removeErr(event) || checkLength(event, 250)" required />
 																<div id="err_field_BeneficiaryHomeAddress" class="error"></div>
 															</div>
 														</div>
@@ -413,17 +439,17 @@
 														<div class="form-row">
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryDOB">What is the Beneficiary’s date of birth?</label>
-																<input type="date" class="input__box" id="field_BeneficiaryDOB" value="" placeholder="Date of Birth" tabindex="15" />
+																<input type="date" class="input__box" id="field_BeneficiaryDOB" value="" onkeypress="return false" placeholder="Date of Birth" tabindex="15" />
 																<div id="err_field_BeneficiaryDOB" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryPOB">What is the Beneficiary’s place of birth?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryPOB" value="" placeholder="Place of Birth" tabindex="16" onkeypress="removeErr(event)" required />
+																<input type="text" class="input__box" maxlength="120" id="field_BeneficiaryPOB" value="" placeholder="Place of Birth" tabindex="16" onkeypress="removeErr(event) || checkLength(event, 120 )" required />
 																<div id="err_field_BeneficiaryPOB" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryNationality">What is the Beneficiary’s nationality?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryNationality" value="" placeholder="Nationality" tabindex="17" required />
+																<input type="text" class="input__box" maxlength="120" id="field_BeneficiaryNationality" value="" placeholder="Nationality" tabindex="17" onkeypress=" return checkLength(event, 120)"  required />
 																<div id="err_field_BeneficiaryNationality" onkeypress="removeErr(event)" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
@@ -438,12 +464,12 @@
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryOccupation">What is the Beneficiary’s Occupation?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryOccupation" value="" tabindex="19" onkeypress="removeErr(event)" required />
+																<input type="text" class="input__box" id="field_BeneficiaryOccupation" value="" placeholder="Occupation Detail" tabindex="19" onkeypress="removeErr(event)" required />
 																<div id="err_field_BeneficiaryOccupation" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
 																<label for="field_BeneficiaryRelationToDeceased">What is the Beneficiary’s relationship to the deceased?</label>
-																<input type="text" class="input__box" id="field_BeneficiaryRelationToDeceased" value="" placeholder="Relationship to the Deceased" tabindex="19" onkeypress="removeErr(event)" required />
+																<input type="text" class="input__box" maxlength="50" id="field_BeneficiaryRelationToDeceased" value="" placeholder="Relationship to the Deceased" tabindex="19" onkeypress="removeErr(event) || checkLength(event, 50)" required />
 																<div id="err_field_BeneficiaryRelationToDeceased" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags" style="margin-top: 2.8rem;">
@@ -485,10 +511,10 @@
 							<p class="privacy_title">PRIVACY NOTICE</p>
 							<ul class="privacy_ul">
 								<li>The Company values your privacy and we abide by the Principles of Transparency, Legitimate Purpose and Proportionality enshrined in the Philippine Data Privacy Act of 2012.</li>
-								<li>Accordingly, the Company processes, using any medium, any information pertaining to this application or insurance policy and all submitted documents, to provide our insurance and investment products and services. The information and documents is also disclosed to the Company’s affiliations (including but not limited to any of its subsidiaries/affiliates in the Asia Pacific Region), its Brokers, Agents, and their employees and staff and to accredited/affiliated third parties or independent/non-affiliated third parties, whether local or foreign. The Company will upload your medical information to a Medical Information Database accessible to life insurance companies for the purpose of enhancing risk assessment and preventing fraud. Once uploaded, all life insurance companies will only have limited access to the said medical information in order to protect my/our right to privacy in accordance with law. A copy of Circular Letter No. 2016-54 may be accessed at the Insurance Commission’s website at www.insurance.gov.ph.</li>
+								<li>Accordingly, the Company processes, using any medium, any information pertaining to this application or insurance policy and all submitted documents, to provide our insurance and investment products and services. The information and documents is also disclosed to the Company’s affiliations (including but not limited to any of its subsidiaries/affiliates in the Asia Pacific Region), its Brokers, Agents, and their employees and staff and to accredited/affiliated third parties or independent/non-affiliated third parties, whether local or foreign. The Company will upload your medical information to a Medical Information Database accessible to life insurance companies for the purpose of enhancing risk assessment and preventing fraud. Once uploaded, all life insurance companies will only have limited access to the said medical information in order to protect my/our right to privacy in accordance with law. A copy of Circular Letter No. 2016-54 may be accessed at the Insurance Commission’s website at <a href="https://www.insurance.gov.ph" target="_blank">www.insurance.gov.ph</a>.</li>
 								<li>Your information and documents are retained by the Company (a) from execution until seven (7) years after termination of your policy, for hard documents in paper form, and (b) from execution until ten (10) years after termination of your policy, for documents in electronic form; but in no case shorter than may be required by appropriate orders and regulations. Your information will be deleted/destroyed after this period.</li>
 								<li>The Company will use such information in the insurance policy and all related documents to conduct automated processing, data analytics, profiling, historical research (a) to improve the Company’s internal systems and processes, (b) for actuarial assumptions, © in internal and external company reports, and (d) to develop and implement business strategies.</li>
-								<li>Please visit our website, www.philamlife.com for our Privacy Statement, which provides further details on why your personal data is collected, how it is intended to be used, to whom your personal data may be transferred to, how to access, review and amend your personal data, and our policies on direct marketing.</li>
+								<li>Please visit our website, <a href="https://www.philamlife.com" target="_blank">www.philamlife.com</a> for our Privacy Statement, which provides further details on why your personal data is collected, how it is intended to be used, to whom your personal data may be transferred to, how to access, review and amend your personal data, and our policies on direct marketing.</li>
 							</ul>
 							<p class="privacy_title">PRIVACY CONSENT</p>
 							<ul class="privacy_consent">
@@ -507,7 +533,7 @@
 									<p id="err_privacy_consent2" class="error" style="margin-left: 5rem"></p>
 								</li>
 								<li>
-									<p style="margin-left: 1rem;">I/we may at anytime withdraw our consent by visiting Philam branches, calling the Company’s contact center, or by emailing the request to phi.philamprivacy@aia.com. Upon receipt of such withdrawal of consent, the Company will no longer approach me/us for promotions or products that may be suited to my/our insurance needs. I/We am/are assured that this will not affect the Company’s ability to provide quality service in relation to my/our existing policies</p>
+									<p style="margin-left: 1rem;">I/we may at anytime withdraw our consent by visiting Philam branches, calling the Company’s contact center, or by emailing the request to <a href="mailto:phi.philamprivacy@aia.com">phi.philamprivacy@aia.com</a>. Upon receipt of such withdrawal of consent, the Company will no longer approach me/us for promotions or products that may be suited to my/our insurance needs. I/We am/are assured that this will not affect the Company’s ability to provide quality service in relation to my/our existing policies</p>
 								</li>
 							</ul>
 						
@@ -528,9 +554,10 @@
 							<p class="font-italic font-weight-normal">Important Note! The insured’s valid government ID should also reflect a clearly visible signature.</p>
 							<div class="row upload_form">
 								<div class="col-12 col-md-12">
-									<p class="form__left__title">Insured’s Information</p>
+									<!-- <p class="form__left__title">Insured’s Information</p> -->
 									<div class="row">
 										<div class="col-12 col-md-6">
+											<p class="form__left__title">Insured</p>
 											<div class="form-row">
 												<div class="col-12 col-md-6" style="padding: 0; margin: 1.5rem 0;">
 													<p class="upload_btn_title">Death Certificate of the Deceased</p> <span class="btn btn-file">
@@ -557,6 +584,7 @@
 											</div>
 										</div>
 										<div class="col-12 col-md-6">
+											<p class="form__left__title">Beneficiary</p>
 											<div class="form-row">
 												<div class="col-12 col-md-6" style="padding: 0; margin: 1.5rem 0;">
 													<p class="upload_btn_title">Valid Government ID (Front)</p> <span class="btn btn-file">
@@ -703,7 +731,7 @@
 						<br />
 						<div class="row">
 							<div class="col-9">
-								<p class="font-weight-normal">Hi Alex. Hang in there as we are now processing your request. Kindly expect an update from us within 2 to 4 days on the status of your request.</p>
+								<p id="customer_Name" class="font-weight-normal">Hi Alex. Hang in there as we are now processing your request. Kindly expect an update from us within 2 to 4 days on the status of your request.</p>
 								<br />
 								<p class="font-weight-normal">If we would need additional documents to support your request, we will reach out to you immediately.</p>
 								<br />
@@ -753,12 +781,12 @@
 											<div class="form-row">
 												<div class="col-md-12 form__tags">
 													<label for="validation">What is your account name?</label>
-													<input type="text" class="input__box" id="field_AccountName" value="" placeholder="Account Name" tabindex="17" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+													<input type="text" class="input__box" maxlength="90" id="field_AccountName" value="" placeholder="Account Name" tabindex="17" onkeypress="return isNotNumber(event) && checkSpcialChar(event) &&  checkLength(event, 90)" required />
 													<div id="err_field_AccountName" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="validation">What is your account number?</label>
-													<input type="text" class="input__box" id="field_AccountNumber" value="" placeholder="Account Number" tabindex="18" onkeypress="return isNumber(event)" required />
+													<input type="text" class="input__box" maxlength="20" id="field_AccountNumber" value="" placeholder="Account Number" tabindex="18" onkeypress="return isNumber(event) && check_Mobile_Length(event, 20)" required />
 													<div id="err_field_AccountNumber" class="error"></div>
 												</div>
 											</div>
@@ -769,26 +797,26 @@
 													<label for="validation">What is your bank?</label>
 													<select class="custom-select-container mr-sm-2 " id="field_Bank">
 														<option value="" selected>--</option>
-														<option value="Bank of the Philippine Islands">BPI - Bank of the Philippine Islands</option>
-														<option value="BPI Family Savings Bank">BFB - BPI Family Savings Bank</option>
-														<option value="Banco de Oro">BDO - Banco de Oro</option>
-														<option value="China Banking Corporation">CBC - China Banking Corporation</option>
-														<option value="Citibank Philippines">CITI - Citibank Philippines</option>
-														<option value="Development Bank of the Phils">DBP - Development Bank of the Phils</option>
-														<option value="Eastwest Bank">EWB - Eastwest Bank</option>
-														<option value="Hongkong Shanghai Banking Corp. Phils">HSBC - Hongkong Shanghai Banking Corp. Phils</option>
-														<option value="Land Bank of the Philippines">LBP - Land Bank of the Philippines</option>
-														<option value="Metropolitan Banks and Trust Company">MBTC - Metropolitan Banks and Trust Company</option>
-														<option value="Philippine National Bank">PNB - Philippine National Bank</option>
-														<option value="Rizal Commercial Banking Corp">RCBC - Rizal Commercial Banking Corp</option>
-														<option value="Security Bank">SBTC - Security Bank</option>
-														<option value="Union Bank of the Philippines">UB- Union Bank of the Philippines</option>
+														<option value="Bank of the Philippine Islands">Bank of the Philippine Islands</option>
+														<option value="BPI Family Savings Bank">BPI Family Savings Bank</option>
+														<option value="Banco de Oro">Banco de Oro</option>
+														<option value="China Banking Corporation">China Banking Corporation</option>
+														<option value="Citibank Philippines">Citibank Philippines</option>
+														<option value="Development Bank of the Phils">Development Bank of the Phils</option>
+														<option value="Eastwest Bank">Eastwest Bank</option>
+														<option value="Hongkong Shanghai Banking Corp. Phils">Hongkong Shanghai Banking Corp. Phils</option>
+														<option value="Land Bank of the Philippines">Land Bank of the Philippines</option>
+														<option value="Metropolitan Banks and Trust Company">Metropolitan Banks and Trust Company</option>
+														<option value="Philippine National Bank">Philippine National Bank</option>
+														<option value="Rizal Commercial Banking Corp">Rizal Commercial Banking Corp</option>
+														<option value="Security Bank">Security Bank</option>
+														<option value="Union Bank of the Philippines">Union Bank of the Philippines</option>
 													</select>
 													<div id="err_field_Bank" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="validation">What is your bank’s branch?</label>
-													<input type="text" class="input__box" id="field_Branch" value="" placeholder="Branch" tabindex="21" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+													<input type="text" class="input__box" maxlength="50" id="field_Branch" value="" placeholder="Branch" tabindex="21" onkeypress="checkLength(event, 50)" required />
 													<div id="err_field_Branch" class="error"></div>
 												</div>
 											</div>
@@ -798,7 +826,7 @@
 												<div class="col-md-12 form__tags">
 													<label for="validation">What is your account’s currency?</label>
 													<select id="from_currency" class="custom-select-container mr-sm-2 " tabindex="19">
-														<option value="PHP" selected>PHP</option>
+														<option value="Peso" selected>Peso</option>
 														<option value="USD">USD</option>
 													</select>
 													<div id="err_field_Currency" class="error"></div>
@@ -819,12 +847,31 @@
                                                         account documents: Passbook, Bank
                                                         Account Statement, or Bank Certification.
                                                         You may only upload documents that are
-                                                        in .jpg, .pdf, or formats and must not
+                                                        in .jpg, .pdf formats and must not
                                                         exceed 2MB in file size.
                                                     </small>
 													<p class="feedback_label" id="upload_feedback_label"></p>
 												</div>
 											</div>
+											<div class="card" id="warning_parent_acct">
+                                                <div class="card-body" style="display: flex;padding: 0.5rem;">
+                                                    <div style="font-size: 1.8rem;">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                            class="bi bi-exclamation-triangle-fill" fill="currentColor"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div id="upload_warning_acct" style="padding: 0 0.9rem;">
+                                                        Warning: We detected a virus/malware
+                                                        in your uploaded documents. Please
+                                                        re-upload a clean, virus-free document
+                                                        to proceed.
+                                                    </div>
+        
+                                                </div>
+                                            </div>
 											<button type="submit" class="btn submit__btn" style="width: 50%; margin: 3rem 0;">Submit</button>
 										</div>
 									</div>
@@ -850,23 +897,23 @@
 											<div class="form-row">
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryFirstName">What is the Beneficiary’s first name?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryFirstName" value="" placeholder="First Name" tabindex="7" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+													<input type="text" class="input__box" maxlength="30" id="field_addBeneficiaryFirstName" value="" placeholder="First Name" tabindex="7" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 													<div id="err_field_addBeneficiaryFirstName" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryMiddleName">What is the Beneficiary’s middle name?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryMiddleName" value="" placeholder="Middle Name (If married, provide maiden name)" tabindex="8" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+													<input type="text" class="input__box" maxlength="30" id="field_addBeneficiaryMiddleName" value="" placeholder="Middle Name (If married, provide maiden name)" tabindex="8" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 													<div id="err_field_addBeneficiaryMiddleName" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryLastName">What is the Beneficiary’s last name?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryLastName" value="" placeholder="Last Name (if married, provide maiden name)" tabindex="9" onkeypress="return isNotNumber(event) && checkSpcialChar(event)" required />
+													<input type="text" class="input__box" maxlength="30" id="field_addBeneficiaryLastName" value="" placeholder="Last Name (if married, provide maiden name)" tabindex="9" onkeypress="return isNotNumber(event) && checkSpcialChar(event) && checkLength(event, 30)" required />
 													<div id="err_field_addBeneficiaryLastName" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryMobileNumber">What is the Beneficiary’s mobile number?</label>
 													<div class="row">
-														<div class="col-md-3">
+														<div class="col-md-4">
 															<select class="custom-select-container mr-sm-2" id="field_addBeneficiaryMobileNumberSelect" tabindex="10">
 																<option value="63" style="display:none">+63</option>
 																<option data-countryCode="PH" value="63">Philippines (+63)</option>
@@ -1087,20 +1134,20 @@
 																</optgroup>
 															</select>
 														</div>
-														<div class="col-md-9">
-															<input type="text" class="input__box" id="field_addBeneficiaryMobileNum" value="" placeholder="Mobile Number" onkeypress="return isNumber(event)" tabindex="11" required />
+														<div class="col-md-8">
+															<input type="text" class="input__box" maxlength="10" id="field_addBeneficiaryMobileNum" value="" placeholder="Mobile Number" onkeypress="return isNumber(event) && check_Mobile_Length(event, 10)" tabindex="11" required />
 															<div id="err_field_addBeneficiaryMobileNum" class="error"></div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryEmailAddress">What is the Beneficiary’s email address?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryEmailAddress" value="" placeholder="Email Address" tabindex="12" onkeypress="removeErr(event)" required />
+													<input type="text" class="input__box" maxlength="40" id="field_addBeneficiaryEmailAddress" value="" placeholder="Email Address" tabindex="12" onkeypress="removeErr(event) || checkLength(event, 40)" required />
 													<div id="err_field_addBeneficiaryEmailAddress" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryHomeAddress">What is the Beneficiary’s home address?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryHomeAddress" value="" placeholder="Home Address" tabindex="13" onkeypress="removeErr(event)" required />
+													<input type="text" class="input__box" maxlength="250" id="field_addBeneficiaryHomeAddress" value="" placeholder="Home Address" tabindex="13" onkeypress="removeErr(event) || checkLength(event, 250)" required />
 													<div id="err_field_addBeneficiaryHomeAddress" class="error"></div>
 												</div>
 											</div>
@@ -1109,17 +1156,17 @@
 											<div class="form-row">
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryDOB">What is the Beneficiary’s date of birth?</label>
-													<input type="date" class="input__box" id="field_addBeneficiaryDOB" value="" placeholder="Date of Birth" tabindex="14" />
+													<input type="date" class="input__box" id="field_addBeneficiaryDOB" value="" onkeypress="return false" placeholder="Date of Birth" tabindex="14" />
 													<div id="err_field_addBeneficiaryDOB" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryPOB">What is the Beneficiary’s place of birth?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryPOB" value="" placeholder="Place of Birth" tabindex="15" onkeypress="removeErr(event)" required />
+													<input type="text" class="input__box" maxlength="120" id="field_addBeneficiaryPOB" value="" placeholder="Place of Birth" tabindex="15" onkeypress="removeErr(event) || checkLength(event,120)" required />
 													<div id="err_field_addBeneficiaryPOB" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryNationality">What is the Beneficiary’s nationality?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryNationality" value="" placeholder="Nationality" tabindex="16" onkeypress="removeErr(event)" required />
+													<input type="text" class="input__box" maxlength="120" id="field_addBeneficiaryNationality" value="" placeholder="Nationality" tabindex="16" onkeypress="removeErr(event) || checkLength(event, 120)" required />
 													<div id="err_field_addBeneficiaryNationality" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags">
@@ -1129,7 +1176,7 @@
 												</div>
 												<div class="col-md-12 form__tags">
 													<label for="field_addBeneficiaryRelationToDeceased">What is the Beneficiary’s relationship to the deceased?</label>
-													<input type="text" class="input__box" id="field_addBeneficiaryRelationToDeceased" value="" placeholder="Relationship to the Deceased" tabindex="18" onkeypress="removeErr(event)" required />
+													<input type="text" class="input__box" maxlength="50" id="field_addBeneficiaryRelationToDeceased" value="" placeholder="Relationship to the Deceased" tabindex="18" onkeypress="removeErr(event) || checkLength(event, 50)" required />
 													<div id="err_field_addBeneficiaryRelationToDeceased" class="error"></div>
 												</div>
 												<div class="col-md-12 form__tags" style="margin-top: 2.8rem;">
@@ -1199,6 +1246,36 @@
 				</div>
 			</section>
 		</section>
+		        
+        <section class="hide" id="pickUp">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-11 offset-md-1" style="margin-top: 2rem;">
+                        <p class="privacy_title">Pick up Anywhere</p>
+                        <p style="margin: 2rem 0 2rem 0;">
+                            If your request is approved, you can claim your benefit from any BPI or BPI Family Saving Branch.
+                        </p>
+                        <p style="margin: 2rem 0;">
+                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Saving Bank.
+                        </p>
+                        <div class="col-12 col-md-12" style="margin: 0 0 0 1rem 0;">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="popup">
+                                        <button type="submit" onclick="openlink()" class="btn pickUp_btn" style="width: 100%; margin: 0 0 1rem 0;">CHECK OUT THE BPI BRANCH NEAREST YOU</button>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6" style="display: flex; justify-content: flex-end;"> 
+                                    <div  class="popup">
+                                        <button type="submit"  onclick="pickup_Bpi()" class="btn" style="width: 100%;">YES, I WOULD LIKE TO PICK UP MY BENEFIT THROUGH BPI</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 		
 		<section class="hide modal fade" id="popUp" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

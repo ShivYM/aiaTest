@@ -482,6 +482,21 @@ function handleForm(event) {
       /*  $('#requirements')[0].scrollIntoView(true); */
 
       console.log('Data -> ', data)
+      // let htmlString = new XMLSerializer().serializeToString(document);
+      // console.log("HTMl string : ")
+      // console.log(htmlString)
+
+
+      docType = "Test";
+      tranType = "Test";
+
+      let html = document.getElementById("form_wrapper").innerHTML;
+      console.log(html)
+
+      let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+      const formData = new FormData()
+      formData.append('htmlFile', html)
+      handleImageUpload(formData, fileName);
 
       InsuredInformation["FirstName"] = field_firstName;
       InsuredInformation["MiddleName"] = field_middleName;

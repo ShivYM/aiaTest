@@ -126,6 +126,25 @@ const handleImageUpload = (formData, fileName) => {
     })
 }
 
+/**
+ * 
+ * New function
+ * instead of giving a PDF the as result
+ * you will be getting the cdn link to the file in the bot
+ */
+const handleFileUpload = (formData) =>{
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formData,
+    redirect: 'follow'
+  };
+  fetch(`https://cors-anywhere.herokuapp.com/https://app.yellowmessenger.com/api/chat/upload-file?bot=${botId}&uid=${referenceNumber}`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
 const getBuffer = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsArrayBuffer(file);
@@ -496,7 +515,6 @@ function handleForm(event) {
       // let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
       // const formData = new FormData()
       // formData.append('htmlFile', html)
-      // handleImageUpload(formData, fileName);
 
       InsuredInformation["FirstName"] = field_firstName;
       InsuredInformation["MiddleName"] = field_middleName;
@@ -515,6 +533,7 @@ function handleForm(event) {
 
       let stageOneData = {
         stageOne: true,
+        type  :"Accident",
         referenceNumber: referenceNumber,
         data: InsuredInformation
       }
@@ -641,8 +660,8 @@ file1.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile1', file)
-        handleImageUpload(formData, fileName);
+        formData.append('myFile1', file, fileName);
+        handleFileUpload(formData);
 
       } else {
         $("#warning_parent").show();
@@ -690,8 +709,8 @@ file2.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile2', file)
-        handleImageUpload(formData, fileName);
+        formData.append('myFile2', file, fileName)
+        handleFileUpload(formData);
 
       } else {
         $("#warning_parent").show();
@@ -737,8 +756,8 @@ file3.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile3', file)
-        handleImageUpload(formData, fileName);
+        formData.append('myFile3', file, fileName)
+        handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_3").hide();
@@ -783,8 +802,8 @@ file4.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile4', file)
-        handleImageUpload(formData, fileName);
+        formData.append('myFile4', file, fileName)
+        handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_4").hide();
@@ -829,8 +848,8 @@ file5.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile5', file)
-        handleImageUpload(formData, fileName);
+        formData.append('myFile5', file, fileName)
+        handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_5").hide();
@@ -1134,19 +1153,19 @@ function handleAccountInfo(event) {
     // formData.append(`myFile${filesList.length}`, fileUpload6);
     // formData.append('myFile1', file)
     console.log("formData");
-    console.log(formData)
-    handleImageUpload(formData, fileName);
+    console.log(formData, fileName)
+    handleFileUpload(formData);
 
     console.log("FPB : ")
     console.log(finalPayload)
-    window.parent.postMessage(JSON.stringify({
-      event_code: 'ym-client-event', data: JSON.stringify({
-        event: {
-          code: "personalinfo",
-          data: JSON.stringify(finalPayload)
-        }
-      })
-    }), '*');
+    // window.parent.postMessage(JSON.stringify({
+    //   event_code: 'ym-client-event', data: JSON.stringify({
+    //     event: {
+    //       code: "personalinfo",
+    //       data: JSON.stringify(finalPayload)
+    //     }
+    //   })
+    // }), '*');
 
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");

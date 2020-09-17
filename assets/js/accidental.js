@@ -1016,14 +1016,14 @@ function buttonSubmitClicked(event) {
     stageTwo: true,
     referenceNumber: referenceNumber
   }
-  window.parent.postMessage(JSON.stringify({
-    event_code: 'ym-client-event', data: JSON.stringify({
-      event: {
-        code: "personalinfo",
-        data: JSON.stringify(stageTwoData)
-      }
-    })
-  }), '*');
+  // window.parent.postMessage(JSON.stringify({
+  //   event_code: 'ym-client-event', data: JSON.stringify({
+  //     event: {
+  //       code: "personalinfo",
+  //       data: JSON.stringify(stageTwoData)
+  //     }
+  //   })
+  // }), '*');
 
 
 }

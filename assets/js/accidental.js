@@ -487,16 +487,16 @@ function handleForm(event) {
       // console.log(htmlString)
 
 
-      docType = "Test";
-      tranType = "Test";
+      // docType = "Test";
+      // tranType = "Test";
 
-      let html = document.getElementById("form_wrapper").innerHTML;
-      console.log(html)
+      // let html = document.getElementById("form_wrapper").innerHTML;
+      // console.log(html)
 
-      let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
-      const formData = new FormData()
-      formData.append('htmlFile', html)
-      handleImageUpload(formData, fileName);
+      // let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+      // const formData = new FormData()
+      // formData.append('htmlFile', html)
+      // handleImageUpload(formData, fileName);
 
       InsuredInformation["FirstName"] = field_firstName;
       InsuredInformation["MiddleName"] = field_middleName;

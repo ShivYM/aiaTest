@@ -133,6 +133,8 @@ const handleImageUpload = (formData, fileName) => {
  * you will be getting the cdn link to the file in the bot
  */
 const handleFileUpload = (formData) =>{
+  var myHeaders = new Headers();
+  
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,

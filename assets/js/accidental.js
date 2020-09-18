@@ -1159,14 +1159,14 @@ function handleAccountInfo(event) {
 
     console.log("FPB : ")
     console.log(finalPayload)
-    // window.parent.postMessage(JSON.stringify({
-    //   event_code: 'ym-client-event', data: JSON.stringify({
-    //     event: {
-    //       code: "personalinfo",
-    //       data: JSON.stringify(finalPayload)
-    //     }
-    //   })
-    // }), '*');
+    window.parent.postMessage(JSON.stringify({
+      event_code: 'ym-client-event', data: JSON.stringify({
+        event: {
+          code: "finalEvent",
+          data: JSON.stringify(finalPayload)
+        }
+      })
+    }), '*');
 
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");

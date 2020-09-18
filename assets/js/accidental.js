@@ -131,7 +131,7 @@ const handleImageUpload = (formData, fileName) => {
  * instead of giving a PDF the as result
  * you will be getting the cdn link to the file in the bot
  */
-const handleFileUpload = (formData) =>{
+const handleFileUpload = (formData, fileName) =>{
   console.log("file upload new");
   var myHeaders = new Headers();
   
@@ -141,7 +141,7 @@ const handleFileUpload = (formData) =>{
     body: formData,
     redirect: 'follow'
   };
-  fetch(`https://cors-anywhere.herokuapp.com/https://app.yellowmessenger.com/api/chat/upload-file?bot=${botId}&uid=${referenceNumber}`, requestOptions)
+  fetch(`https://cors-anywhere.herokuapp.com/https://app.yellowmessenger.com/api/chat/upload-file?bot=${botId}&uid=${fileName}`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -663,7 +663,7 @@ file1.onchange = async function (e) {
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('file', file, fileName+".pdf");
-        handleFileUpload(formData);
+        handleFileUpload(formData, fileName);
 
       } else {
         $("#warning_parent").show();
@@ -712,7 +712,7 @@ file2.onchange = async function (e) {
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('file', file, fileName+".pdf")
-        handleFileUpload(formData);
+        handleFileUpload(formData, fileName);
 
       } else {
         $("#warning_parent").show();
@@ -759,7 +759,7 @@ file3.onchange = async function (e) {
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('file', file, fileName+".pdf")
-        handleFileUpload(formData);
+        handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_3").hide();
@@ -805,7 +805,7 @@ file4.onchange = async function (e) {
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('file', file, fileName+".pdf")
-        handleFileUpload(formData);
+        handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_4").hide();
@@ -851,7 +851,7 @@ file5.onchange = async function (e) {
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
         formData.append('file', file, fileName+".pdf")
-        handleFileUpload(formData);
+        handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
         $("#file_loader_icon_5").hide();

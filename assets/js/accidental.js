@@ -94,7 +94,6 @@ function setCountryCode() {
 const handleImageUpload = (formData, fileName) => {
   // const files = event.target.files
   // const formData = new FormData()
-  // formData.append('myFile1', files)
   fetch('https://staging.yellowmessenger.com/components/tataAia/upload', {
     method: 'POST',
     body: formData
@@ -662,7 +661,7 @@ file1.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile1', file, fileName);
+        formData.append('file', file, fileName);
         handleFileUpload(formData);
 
       } else {
@@ -711,7 +710,7 @@ file2.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile2', file, fileName)
+        formData.append('file', file, fileName)
         handleFileUpload(formData);
 
       } else {
@@ -758,7 +757,7 @@ file3.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile3', file, fileName)
+        formData.append('file', file, fileName)
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -804,7 +803,7 @@ file4.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile4', file, fileName)
+        formData.append('file', file, fileName)
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -850,7 +849,7 @@ file5.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('myFile5', file, fileName)
+        formData.append('file', file, fileName)
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -1150,10 +1149,9 @@ function handleAccountInfo(event) {
     const formData = new FormData()
 
     for (let i = 0; i < filesList.length; i++) {
-      formData.append(`myFile${i + 1}`, filesList[i])
+      formData.append(`file${i + 1}`, filesList[i])
     }
-    // formData.append(`myFile${filesList.length}`, fileUpload6);
-    // formData.append('myFile1', file)
+    
     console.log("formData");
     console.log(formData, fileName)
     handleFileUpload(formData);

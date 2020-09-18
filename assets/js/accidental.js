@@ -132,6 +132,7 @@ const handleImageUpload = (formData, fileName) => {
  * you will be getting the cdn link to the file in the bot
  */
 const handleFileUpload = (formData) =>{
+  console.log("file upload new");
   var myHeaders = new Headers();
   
   var requestOptions = {
@@ -661,7 +662,7 @@ file1.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName);
+        formData.append('file', file, fileName+".pdf");
         handleFileUpload(formData);
 
       } else {
@@ -710,7 +711,7 @@ file2.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName)
+        formData.append('file', file, fileName+".pdf")
         handleFileUpload(formData);
 
       } else {
@@ -757,7 +758,7 @@ file3.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName)
+        formData.append('file', file, fileName+".pdf")
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -803,7 +804,7 @@ file4.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName)
+        formData.append('file', file, fileName+".pdf")
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -849,7 +850,7 @@ file5.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName)
+        formData.append('file', file, fileName+".pdf")
         handleFileUpload(formData);
       } else {
         $("#warning_parent").show();
@@ -1141,20 +1142,20 @@ function handleAccountInfo(event) {
     finalPayload["stageThree"] = true;
     finalPayload["referenceNumber"] = referenceNumber;
 
-    tranType = "MG";
-    docType = "LIMG001";
+    // tranType = "MG";
+    // docType = "LIMG001";
 
-    console.log("files list length : " + filesList.length)
-    let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
-    const formData = new FormData()
+    // console.log("files list length : " + filesList.length)
+    // let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+    // const formData = new FormData()
 
-    for (let i = 0; i < filesList.length; i++) {
-      formData.append(`file${i + 1}`, filesList[i])
-    }
+    // for (let i = 0; i < filesList.length; i++) {
+    //   formData.append(`file${i + 1}`, filesList[i])
+    // }
     
-    console.log("formData");
-    console.log(formData, fileName)
-    handleFileUpload(formData);
+    // console.log("formData");
+    // console.log(formData, fileName)
+    // handleFileUpload(formData);
 
     console.log("FPB : ")
     console.log(finalPayload)

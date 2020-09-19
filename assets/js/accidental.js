@@ -662,7 +662,7 @@ file1.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName+".pdf");
+        formData.append('file', file, fileName+`.${ext}`);
         handleFileUpload(formData, fileName);
 
       } else {
@@ -711,7 +711,7 @@ file2.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName+".pdf")
+        formData.append('file', file, fileName+`.${ext}`)
         handleFileUpload(formData, fileName);
 
       } else {
@@ -758,7 +758,7 @@ file3.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName+".pdf")
+        formData.append('file', file, fileName+`.${ext}`)
         handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
@@ -804,7 +804,7 @@ file4.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName+".pdf")
+        formData.append('file', file, fileName+`.${ext}`)
         handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
@@ -850,7 +850,7 @@ file5.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
         const formData = new FormData()
-        formData.append('file', file, fileName+".pdf")
+        formData.append('file', file, fileName+`.${ext}`)
         handleFileUpload(formData, fileName);
       } else {
         $("#warning_parent").show();
@@ -1018,14 +1018,14 @@ function buttonSubmitClicked(event) {
     stageTwo: true,
     referenceNumber: referenceNumber
   }
-  // window.parent.postMessage(JSON.stringify({
-  //   event_code: 'ym-client-event', data: JSON.stringify({
-  //     event: {
-  //       code: "personalinfo",
-  //       data: JSON.stringify(stageTwoData)
-  //     }
-  //   })
-  // }), '*');
+  window.parent.postMessage(JSON.stringify({
+    event_code: 'ym-client-event', data: JSON.stringify({
+      event: {
+        code: "fileuploads",
+        data: JSON.stringify(stageTwoData)
+      }
+    })
+  }), '*');
 
 
 }

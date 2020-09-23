@@ -1021,12 +1021,6 @@ file1.onchange = async function (e) {
           "DocTypeCode": "LIDC001",
           "DocumentDescription": "Front copy of doc"
         }
-        // accident.set('LIDC001Front', {
-        //   "Filename": `${fileName}.pdf`,
-        //   "DocType": "PDF",
-        //   "DocTypeCode": "LIDC001",
-        //   "DocumentDescription": "Front copy of doc"
-        // })
 
         console.log("calling file handling API : ")
         const formData = new FormData()
@@ -1207,13 +1201,6 @@ file4.onchange = async function (e) {
           "DocTypeCode": "LIDC036",
           "DocumentDescription": "Police or Narration Report"
         }
-
-        // accident.set('LIDC036', {
-        //   "Filename": `${fileName}.pdf`,
-        //   "DocType": "PDF",
-        //   "DocTypeCode": "LIDC036",
-        //   "DocumentDescription": "Police or Narration Report"
-        // })
 
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
@@ -1593,21 +1580,6 @@ function handleAccountInfo(event) {
     finalPayload["FileList"] = filesMap;
     finalPayload["stageThree"] = true;
     finalPayload["referenceNumber"] = referenceNumber;
-
-    // tranType = "MG";
-    // docType = "LIMG001";
-
-    // console.log("files list length : " + filesList.length)
-    // let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
-    // const formData = new FormData()
-
-    // for (let i = 0; i < filesList.length; i++) {
-    //   formData.append(`file${i + 1}`, filesList[i])
-    // }
-
-    // console.log("formData");
-    // console.log(formData, fileName)
-    // handleFileUpload(formData);
 
     console.log("FPB : ")
     console.log(finalPayload)

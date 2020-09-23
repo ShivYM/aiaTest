@@ -46,6 +46,7 @@ let PaymentOption = {};
 let BankDetails = {};
 let FilesInformation = {};
 let filesList = [];
+let beneficiaries = {};
 let filesMap = {};
 let docType, tranType;
 basicInformation["CompanyCode"] = "PAL/BPLAC";
@@ -247,6 +248,22 @@ function setCountryCode() {
         $("select option").css({ "background-color": "", "color": "" });
     });
 }
+
+const handleFileUpload = (formData, fileName) => {
+    console.log("file upload new");
+    var myHeaders = new Headers();
+  
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formData,
+      redirect: 'follow'
+    };
+    fetch(`https://app.yellowmessenger.com/api/chat/upload-file?bot=${botId}&uid=${fileName}`, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -648,6 +665,27 @@ function handleFormAddBeneficiary(event) {
         /*  $('#requirements')[0].scrollIntoView(true); */
 
         console.log('Data -> ', data)
+
+        //create the beneficiary objects here and push to beneficiary list here.        
+        beneficiaries["BeneficiaryNo"] = beneficiaryCount.toString();
+        beneficiaries["FirstName"] = field_addBeneficiaryFirstName;
+        beneficiaries["Middle Name"] = field_addBeneficiaryMiddleName;
+        beneficiaries["LastName"] = field_addBeneficiaryLastName;
+        beneficiaries["Suffix"] = "";
+        beneficiaries["DateOfBirth"] = field_addBeneficiaryDOB;
+        beneficiaries["CountryCode"] = $("select#field_addBeneficiaryMobileNumberSelect option").filter(":selected").val();
+        beneficiaries["PhoneNumber"] = field_addBeneficiaryMobileNum;
+        beneficiaries["EmailAddress"] = field_addBeneficiaryEmailAddress;
+        beneficiaries["HomeAddress"] = field_addBeneficiaryHomeAddress;
+        beneficiaries["PlaceOfBirth"] = field_addBeneficiaryPOB;
+        beneficiaries["Nationality"] = field_addBeneficiaryNationality;
+        beneficiaries["Sex"] = field_addBeneficiarySex;
+        beneficiaries["Relationship"] = field_addBeneficiaryRelationToDeceased;
+        beneficiaries["DocumentFolder"] = "";
+        beneficiaries["PayoutOption"] = "";
+
+        //pushing each beneficiary to the bens list.
+        BeneficiaryList.push(beneficiaries)
 
     } else {
         $('#popUp').modal('show');
@@ -1168,10 +1206,9 @@ function handleForm(event) {
         beneficiaryOne["DocumentFolder"] = "";
         beneficiaryOne["PayoutOption"] = "";
         beneficiaryOne["Relationship"] = field_BeneficiaryRelationToDeceased;
+        BeneficiaryList.push(beneficiaryOne);
 
         beneficiaryCount++;
-
-        BeneficiaryList.push(beneficiaryOne);
 
     } else {
         $('#popUp').modal('show');
@@ -1379,6 +1416,8 @@ const isFileSizeValid = (file) => {
 };
 
 file1.onchange = async function (e) {
+    docType = "DIDC033";
+    tranType = "OCON";
     $("#file_upload_cancle_1").hide();
     $("#file_Upload_Tick_1").hide();
     console.log("Starting");
@@ -1397,6 +1436,21 @@ file1.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+
+                console.log("file 1 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Death Certificate of the Deceased"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_1").hide();
@@ -1419,6 +1473,8 @@ file1.onchange = async function (e) {
 };
 
 file2.onchange = async function (e) {
+    docType = "DIDC007";
+    tranType = "PIR";
     $("#file_upload_cancle_2").hide();
     $("#file_Upload_Tick_2").hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1436,6 +1492,20 @@ file2.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+
+                console.log("file 2 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Police Investigation Report"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_2").hide();
@@ -1458,6 +1528,8 @@ file2.onchange = async function (e) {
 };
 
 file3.onchange = async function (e) {
+    docType = "DIDC001"
+    tranType = "OVIF"
     $('#file_upload_cancle_3').hide();
     $('#file_Upload_Tick_3').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1475,6 +1547,21 @@ file3.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+
+                console.log("file 3 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Claimants valid Government ID (Front)"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_3").hide();
@@ -1497,6 +1584,8 @@ file3.onchange = async function (e) {
 };
 
 file4.onchange = async function (e) {
+    docType = "DIDC001"
+    tranType = "OVIB"
     $('#file_upload_cancle_4').hide();
     $('#file_Upload_Tick_4').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1514,6 +1603,19 @@ file4.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+
+                console.log("file 4 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Claimants valid Government ID (Back)"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_4").hide();
@@ -1536,6 +1638,8 @@ file4.onchange = async function (e) {
 };
 
 file5.onchange = async function (e) {
+    docType = "DIDC010"
+    tranType = "MC"
     $('#file_upload_cancle_5').hide();
     $('#file_Upload_Tick_5').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1553,6 +1657,20 @@ file5.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+                console.log("file 4 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Marriage Contract"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_5").hide();
@@ -1575,6 +1693,8 @@ file5.onchange = async function (e) {
 };
 
 file6.onchange = async function (e) {
+    docType = "DIDC016"
+    tranType = "BCMB"
     $('#file_upload_cancle_6').hide();
     $('#file_Upload_Tick_6').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1592,6 +1712,18 @@ file6.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+                console.log("file 6 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Claimant Birth Certificate"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent").show();
                 $("#file_loader_icon_6").hide();
@@ -1693,6 +1825,8 @@ file8.onchange = async function (e) {
 };
 
 file9.onchange = async function (e) {
+    docType = "DIDC001";
+    tranType = `OVIF[${beneficiaryCount}]`;
     $('#file_upload_cancle_9').hide();
     $('#file_Upload_Tick_9').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1710,6 +1844,19 @@ file9.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+                console.log("file 9 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Marriage Contract"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent_addBeneficiary").show();
                 $("#file_loader_icon_9").hide();
@@ -1732,6 +1879,8 @@ file9.onchange = async function (e) {
 };
 
 file10.onchange = async function (e) {
+    docType = "DIDC001";
+    tranType = `OVIB[${beneficiaryCount}]`;
     $('#file_upload_cancle_10').hide();
     $('#file_Upload_Tick_10').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1749,6 +1898,19 @@ file10.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+                console.log("file 10 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Marriage Contract"
+                }
+
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent_addBeneficiary").show();
                 $("#file_loader_icon_10").hide();
@@ -1772,6 +1934,8 @@ file10.onchange = async function (e) {
 
 
 file11.onchange = async function (e) {
+    docType = "DIDC010";
+    tranType = `MC[${beneficiaryCount}]`;
     $('#file_upload_cancle_11').hide();
     $('#file_Upload_Tick_11').hide();
     var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -1789,6 +1953,19 @@ file11.onchange = async function (e) {
                 else {
                     proceedScan(file, buttonNum, pageId);
                 }
+
+                let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+                console.log("file 11 :upload  ");
+                accident[docType] = {
+                    "Filename": `${fileName}.pdf`,
+                    "DocType": "PDF",
+                    "DocTypeCode": docType,
+                    "DocumentDescription": "Marriage Contract"
+                }
+
+                const formData = new FormData()
+                formData.append('file', file, fileName + `.${ext}`);
+                handleFileUpload(formData, fileName);
             } else {
                 $("#warning_parent_addBeneficiary").show();
                 $("#file_loader_icon_11").hide();
@@ -1939,9 +2116,11 @@ function addBeneficiary(event) {
     console.log('upload data --> ', upload_data);
 
     console.log("on adding new ben");
-    console.log("ben count : ", beneficiaryCount);
+    // console.log("ben count : ", beneficiaryCount);
 
-
+    //push the files to the payload here.
+    filesList.push(accident);
+    beneficiaryCount++;
     /*  $('#addBeneficiary')[0].scrollIntoView(true); */
 }
 
@@ -2009,6 +2188,10 @@ function addBeneficiaryNew(event) {
         $('#addBeneficiaryRequirements').hide();
 
         console.log('upload data --> ', upload_data);
+
+        //update beneficiary count here.
+
+
         fileUploadDataReset();
 
     }
@@ -2106,6 +2289,9 @@ function buttonSubmitClicked(event) {
 
 
     console.log('upload data --> ', upload_data);
+
+    //create final payload here and send as final event to bot.
+
 }
 
 function addBeneficiaryButtonClicked(event) {
@@ -2161,6 +2347,9 @@ function addBeneficiaryButtonClicked(event) {
     $('#addBeneficiaryRequirements').hide();
     $('#process_confirmation').show();
     console.log('upload data --> ', upload_data);
+
+    //here is where beneficiaries are submitted.
+    //increment bene count here.
 }
 
 function handleAccountInfo(event) {
@@ -2387,7 +2576,6 @@ function addBeneficiaryuploadDataReset() {
 }
 
 function bankTranfer() {
-    // BeneficiaryList
     $('#payment').hide();
     $('#account_details').show();
     $("#step1").addClass("done");
@@ -2400,6 +2588,13 @@ function addBeneficiarybankTranfer() {
     $('#addBeneficiaryaccount_details').show();
     $("#step2").addClass("active");
     $("#step2>div").addClass("active");
+
+    for (let i = 0; i < BeneficiaryList.length; i++) {
+        if (BeneficiaryList[i].BeneficiaryNo == beneficiaryCount.toString()) {
+            beneficiaries["PayoutOption"] = "PUA";
+        }
+    }
+
 }
 
 function pickUp() {
@@ -2408,6 +2603,12 @@ function pickUp() {
     $("#step1").addClass("done");
     $("#step2").addClass("active");
     $("#step2>div").addClass("active");
+
+    for (let i = 0; i < BeneficiaryList.length; i++) {
+        if (BeneficiaryList[i].BeneficiaryNo == beneficiaryCount.toString()) {
+            beneficiaries["PayoutOption"] = "PUA";
+        }
+    }
 }
 
 function addBeneficiaryPickup() {

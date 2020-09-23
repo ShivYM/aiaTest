@@ -47,6 +47,7 @@ let BankDetails = {};
 let FilesInformation = {};
 let filesList = [];
 let beneficiaries = {};
+let accident = {};
 let filesMap = {};
 let docType, tranType;
 basicInformation["CompanyCode"] = "PAL/BPLAC";

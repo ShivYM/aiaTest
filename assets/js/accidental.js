@@ -1022,7 +1022,6 @@ file1.onchange = async function (e) {
           "DocumentDescription": "Front copy of doc"
         }
 
-        console.log("calling file handling API : ")
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`);
         handleFileUpload(formData, fileName);
@@ -1077,14 +1076,7 @@ file2.onchange = async function (e) {
           "DocTypeCode": "LIDC001",
           "DocumentDescription": "Back copy of doc"
         }
-        // accident.set('LIDC001Back', 
-        // {
-        //   "Filename": `${fileName}.pdf`,
-        //   "DocType": "PDF",
-        //   "DocTypeCode": "LIDC001",
-        //   "DocumentDescription": "Back copy of doc"
-        // })
-
+        
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1132,20 +1124,12 @@ file3.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
 
-        accident['LIDC001Front'] = {
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
-          "DocTypeCode": "LIDC034",
+          "DocTypeCode": docType,
           "DocumentDescription": "Attending Physician’s Statement"
         }
-
-        // accident.set('LIDC034', 
-        // {
-        //   "Filename": `${fileName}.pdf`,
-        //   "DocType": "PDF",
-        //   "DocTypeCode": "LIDC034",
-        //   "DocumentDescription": "Attending Physician’s Statement"
-        // })
 
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
@@ -1195,10 +1179,10 @@ file4.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
 
-        accident['LIDC001Front'] = {
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
-          "DocTypeCode": "LIDC036",
+          "DocTypeCode": docType,
           "DocumentDescription": "Police or Narration Report"
         }
 
@@ -1249,10 +1233,10 @@ file5.onchange = async function (e) {
         filesList.push(file);
         let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
 
-        accident['LIDC001Front'] = {
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
-          "DocTypeCode": "LIDC035",
+          "DocTypeCode": docType,
           "DocumentDescription": "Police or Narration Report"
         }
 

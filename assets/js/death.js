@@ -44,6 +44,7 @@ let InsuredInformation = {};
 let BeneficiaryList = [];
 let PaymentOption = {};
 let BankDetails = {};
+let bankList = [];
 let FilesInformation = {};
 let filesList = [];
 let beneficiaries = {};
@@ -253,18 +254,18 @@ function setCountryCode() {
 const handleFileUpload = (formData, fileName) => {
     console.log("file upload new");
     var myHeaders = new Headers();
-  
+
     var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formData,
-      redirect: 'follow'
+        method: 'POST',
+        headers: myHeaders,
+        body: formData,
+        redirect: 'follow'
     };
     fetch(`https://app.yellowmessenger.com/api/chat/upload-file?bot=${botId}&uid=${fileName}`, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-  }
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -2292,6 +2293,23 @@ function buttonSubmitClicked(event) {
     console.log('upload data --> ', upload_data);
 
     //create final payload here and send as final event to bot.
+    
+    finalPayload["BasicInformation"] = basicInformation;
+    finalPayload["InsuredInformation"] = InsuredInformation;
+    finalPayload["BankDetails"] = bankList;
+    finalPayload["FileList"] = filesList;
+    finalPayload["stageThree"] = true;
+    finalPayload["referenceNumber"] = referenceNumber;
+
+    console.log(finalPayload)
+    window.parent.postMessage(JSON.stringify({
+      event_code: 'ym-client-event', data: JSON.stringify({
+        event: {
+          code: "finalEvent",
+          data: JSON.stringify(finalPayload)
+        }
+      })
+    }), '*');
 
 }
 
@@ -2451,6 +2469,14 @@ function handleAccountInfo(event) {
         $('#requirements').show();
         /* $('#requirements')[0].scrollIntoView(true);  */
         console.log('Data -> ', data);
+        BankDetails["BeneficiaryNo"] = beneficiaryCount.toString();
+        BankDetails["BankName"] = field_Bank;
+        BankDetails["BankBranch"] = field_Branch;
+        BankDetails["AccountName"] = field_AccountName;
+        BankDetails["AccountNumber"] = field_AccountNumber;
+        BankDetails["AccountCurrency"] = $("select#from_currency option").filter(":selected").val();
+        //todo
+        bankList.push(BankDetails);
     } else {
 
     }

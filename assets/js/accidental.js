@@ -20,7 +20,6 @@ let referenceNumber = url.searchParams.get('refNumber');
 let uid = url.searchParams.get('sender');
 let botId = url.searchParams.get('botId');
 
-
 $('#privacy_consent_1').prop('checked', true);
 $('#privacy_consent_2').prop('checked', true);
 
@@ -47,10 +46,8 @@ let BankDetails = {};
 let FilesInformation = {};
 let filesList = [];
 let filesMap = {};
-let accident = {};
-let docType, tranType;
 let claimType, causeOfLoss, govIdFront, govIdBack, apsFile, narrationReport, officialReceipts;
-let fileUpload1, fileUpload2, fileUpload3, fileUpload4, fileUpload5, fileUpload6, fileUpload7, fileUpload8;
+let file1Buffer, file2Buffer, file3Buffer, file4Buffer, file5Buffer, file6Buffer, file7Buffer, file8Buffer;
 basicInformation["CompanyCode"] = "PAL/BPLAC";
 basicInformation["Claim Type "] = "LIVING";
 basicInformation["CauseOfLoss"] = "Accident";
@@ -144,8 +141,6 @@ function disableFutureDatesDOB() {
   $('#field_DOB').attr('max', maxDate);
 }
 
-
-
 function setCountryCode() {
   $('#inlineFormCustomSelect').change(function () {
     $('select option')[0].value = $('select option:selected').val();
@@ -155,14 +150,6 @@ function setCountryCode() {
   });
 }
 
-/**
- * 
- * for individual file conversions and saving to SFTP
- * send formdata of the file, along with the name
- * 
- * on the sending side however, iterate over the list of files,
- * for each file, call this function
- */
 
 /**
  * Code refactor for this function
@@ -224,7 +211,6 @@ const handleFileUpload = (formData, fileName) => {
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
-
 const getBuffer = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsArrayBuffer(file);
@@ -370,7 +356,7 @@ function checkLength(evt, max_Length) {
   var val = document.getElementById(id).value;
   var length = val.length;
   if (length >= max_Length) {
-    $(`#err_${id}`).text("Maximum " + max_Length + " character allowed!");
+    $(`#err_${id}`).text("Maximum " + max_Length + " characters allowed!");
     $(`#err_${id}`).show();
   } else {
     detection(evt);
@@ -561,6 +547,21 @@ function handleForm(event) {
 
   var comapareDates = compareFun(field_DOB, field_DOA);
 
+  InsuredInformation["FirstName"] = field_firstName;
+  InsuredInformation["MiddleName"] = field_firstName;
+  InsuredInformation["LastName"] = field_firstName;
+  InsuredInformation["Suffix"] = field_firstName;
+  InsuredInformation["DateOfBirth"] = field_firstName;
+  InsuredInformation["CountryCode"] = field_firstName;
+  InsuredInformation["PhoneNumber"] = field_firstName;
+  InsuredInformation["EmailAddress"] = field_firstName;
+  InsuredInformation["HomeAddress"] = field_firstName;
+  InsuredInformation["InjuryDetails"] = field_firstName;
+  InsuredInformation["AccidentDate"] = field_firstName;
+  InsuredInformation["AccidentTime"] = field_firstName;
+  InsuredInformation["AccidentPlace"] = field_firstName;
+  InsuredInformation["FirstName"] = field_firstName;
+
   var specFirstName = specialcharacterValidation(field_firstName);
   var specMiddleName = specialcharacterValidation(field_middleName);
   var specLastName = specialcharacterValidation(field_lastName);
@@ -604,7 +605,7 @@ function handleForm(event) {
     $("#err_field_firstName").text('Field is empty');
     $("#err_field_firstName").show();
   } else if (lenFirstName) {
-    $("#err_field_firstName").text("Maximum 30 character allowed!");
+    $("#err_field_firstName").text("Maximum 30 characters allowed!");
     $("#err_field_firstName").show();
   } else if (specFirstName == true) {
     $("#err_field_firstName").text('Special character is not allowed');
@@ -621,7 +622,7 @@ function handleForm(event) {
     $("#err_field_middleName").text('Field is empty');
     $("#err_field_middleName").show();
   } else if (lenMiddleName) {
-    $("#err_field_middleName").text("Maximum 30 character allowed!");
+    $("#err_field_middleName").text("Maximum 30 characters allowed!");
     $("#err_field_middleName").show();
   } else if (specMiddleName) {
     $("#err_field_middleName").text('Special character is not allowed');
@@ -638,7 +639,7 @@ function handleForm(event) {
     $("#err_field_injury").text('Field is empty');
     $("#err_field_injury").show();
   } else if (leninjury) {
-    $("#err_field_injury").text("Maximum 500 character allowed!");
+    $("#err_field_injury").text("Maximum 500 characters allowed!");
     $("#err_field_injury").show();
   } else {
     $("#err_field_injury").text('');
@@ -649,7 +650,7 @@ function handleForm(event) {
     $("#err_field_lastName").text('Field is empty');
     $("#err_field_lastName").show();
   } else if (lenLastName) {
-    $("#err_field_lastName").text("Maximum 30 character allowed!");
+    $("#err_field_lastName").text("Maximum 30 characters allowed!");
     $("#err_field_lastName").show();
   } else if (specLastName) {
     $("#err_field_lastName").text('Special character is not allowed');
@@ -666,7 +667,7 @@ function handleForm(event) {
     $("#err_field_lastName_Suffix").text('');
     $("#err_field_lastName_Suffix").hide();
   } else if (lenLastNameSuffix) {
-    $("#err_field_lastName_Suffix").text('Maximum 3 character allowed');
+    $("#err_field_lastName_Suffix").text('Maximum 3 characters allowed');
     $("#err_field_lastName_Suffix").show();
   } else if (specLastNameSuffix) {
     $("#err_field_lastName_Suffix").text('Special character is not allowed');
@@ -700,7 +701,7 @@ function handleForm(event) {
     $("#err_field_mobileNum").text('Field is empty');
     $("#err_field_mobileNum").show();
   } else if (lenMobileNum) {
-    $("#err_field_mobileNum").text("Maximum 10 character allowed!");
+    $("#err_field_mobileNum").text("Maximum 10 characters allowed!");
     $("#err_field_mobileNum").show();
   } else if (!numMobile) {
     $("#err_field_mobileNum").text('Only number is allowed!');
@@ -724,7 +725,7 @@ function handleForm(event) {
     $("#err_field_homeAddress").text('Field is empty');
     $("#err_field_homeAddress").show();
   } else if (lenHomeAddress) {
-    $("#err_field_homeAddress").text("Maximum 250 character allowed!");
+    $("#err_field_homeAddress").text("Maximum 250 characters allowed!");
     $("#err_field_homeAddress").show();
   } else {
     $("#err_field_homeAddress").text('');
@@ -758,7 +759,7 @@ function handleForm(event) {
     $("#err_field_POA").text('Field is empty');
     $("#err_field_POA").show();
   } else if (lenPOA) {
-    $("#err_field_POA").text("Maximum 120 character allowed!");
+    $("#err_field_POA").text("Maximum 120 characters allowed!");
     $("#err_field_POA").show();
   } else {
     $("#err_field_POA").text('');
@@ -808,6 +809,8 @@ function handleForm(event) {
     (comapareDates == true) &&
     (timeCompare == true) &&
     (futDOA == true) &&
+    (futDOB == true) &&
+    (futExistDOB == true) &&
     lenLastNameSuffix == false &&
     lenFirstName == false &&
     lenMiddleName == false &&
@@ -844,7 +847,7 @@ function handleForm(event) {
     $("#step2>div").addClass("active");
     $('#requirements').show();
     /*  $('#requirements')[0].scrollIntoView(true); */
-    $("#customer_Name").text(`Hi ${field_firstName}, Hang in there as we are now processing your request. Kindly expect an update from us within 2 to 4 days on the status of your request.`);
+      $("#customer_Name").text(`Hi ${field_firstName}, Hang in there as we are now processing your request. Kindly expect an SMS update from us within 1 to 2 working days on the status of your request.`);
     console.log('Data -> ', data)
 
     InsuredInformation["FirstName"] = field_firstName;
@@ -875,7 +878,6 @@ function handleForm(event) {
         }
       })
     }), '*');
-
   } else {
     $('#popUp').modal('show');
   }
@@ -1010,11 +1012,10 @@ file1.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum, pageID);
         }
-
-        filesList.push(file);
-        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
         console.log("setting file data : ");
+        let accident = {};
         accident['LIDC001Front'] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
@@ -1022,6 +1023,7 @@ file1.onchange = async function (e) {
           "DocumentDescription": "Front copy of doc"
         }
 
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`);
         handleFileUpload(formData, fileName);
@@ -1067,16 +1069,18 @@ file2.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum, pageId);
         }
-        filesList.push(file);
-        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
 
-        accident['LIDC001Front'] = {
+        let fileName = referenceNumber + "_" + docType + "_" + tranType;
+
+        let accident = {};
+        accident['LIDC001Back'] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": "LIDC001",
           "DocumentDescription": "Back copy of doc"
         }
-        
+
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1121,9 +1125,9 @@ file3.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum, pageId);
         }
-        filesList.push(file);
-        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
+        let accident = {};
         accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
@@ -1131,6 +1135,7 @@ file3.onchange = async function (e) {
           "DocumentDescription": "Attending Physician’s Statement"
         }
 
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1176,9 +1181,9 @@ file4.onchange = async function (e) {
           proceedScan(file, buttonNum, pageId);
         }
 
-        filesList.push(file);
-        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
+        let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
+        let accident = {};
         accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
@@ -1186,6 +1191,7 @@ file4.onchange = async function (e) {
           "DocumentDescription": "Police or Narration Report"
         }
 
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1230,9 +1236,10 @@ file5.onchange = async function (e) {
         else {
           proceedScan(file, buttonNum, pageId);
         }
-        filesList.push(file);
-        let fileName = referenceNumber.toString() + "_" + docType + "_" + tranType;
 
+        let fileName = referenceNumber + "_" + docType + "_" + tranType;
+
+        let accident = {};
         accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
@@ -1240,12 +1247,7 @@ file5.onchange = async function (e) {
           "DocumentDescription": "Police or Narration Report"
         }
 
-        // accident.set('LIDC035', {
-        //   "Filename": `${fileName}.pdf`,
-        //   "DocType": "PDF",
-        //   "DocTypeCode": "LIDC035",
-        //   "DocumentDescription": "Police or Narration Report"  
-        // })
+        filesList.push(accident);
 
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
@@ -1420,7 +1422,7 @@ function buttonSubmitClicked(event) {
 
   $("#step2").addClass("active");
   $("#step2>div").addClass("active");
-  $("#step2").addClass("done");
+  /* $("#step2").addClass("done"); */
   $('#requirements').hide();
   $('#payment').show();
   /*   $('#payment')[0].scrollIntoView(true); */
@@ -1462,7 +1464,7 @@ function handleAccountInfo(event) {
     $("#err_field_AccountName").text('Field is empty');
     $("#err_field_AccountName").show();
   } else if (lenAccountName) {
-    $("#err_field_AccountName").text("Maximum 90 character allowed!");
+    $("#err_field_AccountName").text("Maximum 90 characters allowed!");
     $("#err_field_AccountName").show();
   } else if (speCharAccountName) {
     $("#err_field_AccountName").text('special character is not allowed');
@@ -1479,7 +1481,7 @@ function handleAccountInfo(event) {
     $("#err_field_AccountNumber").text('Field is empty');
     $("#err_field_AccountNumber").show();
   } else if (lenAccountNumber) {
-    $("#err_field_AccountNumber").text("Maximum 20 character allowed!");
+    $("#err_field_AccountNumber").text("Maximum 20 characters allowed!");
     $("#err_field_AccountNumber").show();
   } else if (!numAccountNumber || specAccountNumber) {
     $("#err_field_AccountNumber").text("Only number is allowed");
@@ -1501,7 +1503,7 @@ function handleAccountInfo(event) {
     $("#err_field_Branch").text('Field is empty');
     $("#err_field_Branch").show();
   } else if (lenBranch) {
-    $("#err_field_Branch").text("Maximum 50 character allowed!");
+    $("#err_field_Branch").text("Maximum 50 characters allowed!");
     $("#err_field_Branch").show();
   } else {
     $("#err_field_Branch").text("");
@@ -1547,21 +1549,21 @@ function handleAccountInfo(event) {
       upload_file_6: file6.value,
     };
 
-
-    // filesMap.set("Accident",accident);
-
     BankDetails["BankName"] = field_Bank;
     BankDetails["BankBranch"] = field_Branch;
     BankDetails["AccountName"] = field_AccountName;
     BankDetails["AccountNumber"] = field_AccountNumber;
     BankDetails["AccountCurrency"] = $("select#from_currency option").filter(":selected").val();
 
+    let filesObject = {};
+    filesObject["FolderName"] = `/home/accounts/Claims/${referenceNumber}`
+    filesObject["FileList"] = filesList;
 
-    filesMap["Accident"] = accident
+    // filesMap["Accident"] = accident
     finalPayload["BasicInformation"] = basicInformation;
     finalPayload["InsuredInformation"] = InsuredInformation;
     finalPayload["BankDetails"] = BankDetails;
-    finalPayload["FileList"] = filesMap;
+    finalPayload["FileList"] = filesObject;
     finalPayload["stageThree"] = true;
     finalPayload["referenceNumber"] = referenceNumber;
 
@@ -1576,6 +1578,7 @@ function handleAccountInfo(event) {
       })
     }), '*');
 
+    $("#step2").addClass("done");
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");
     $("#step3").addClass("done");
@@ -1593,17 +1596,20 @@ function handleAccountInfo(event) {
 function bankTranfer() {
   $('#payment').hide();
   $('#account_details').show();
-  $("#step3").addClass("active");
-  $("#step3>div").addClass("active");
+  $("#step2").addClass("active");
+  $("#step2>div").addClass("active");
 }
 
 function pickUp() {
+  let filesObject = {};
+  filesObject["FolderName"] = `/home/accounts/Claims/${referenceNumber}`
+  filesObject["FileList"] = filesList;
 
-  filesMap["Accident"] = accident
+  // filesMap["Accident"] = accident
   finalPayload["BasicInformation"] = basicInformation;
   finalPayload["InsuredInformation"] = InsuredInformation;
   finalPayload["BankDetails"] = BankDetails;
-  finalPayload["FileList"] = filesMap;
+  finalPayload["FileList"] = filesObject;
   finalPayload["stageThree"] = true;
   finalPayload["referenceNumber"] = referenceNumber;
 
@@ -1617,19 +1623,17 @@ function pickUp() {
       }
     })
   }), '*');
-
   $('#payment').hide();
   /* $('#process_confirmation').show(); */
   $("#pickUp").show();
   $("#step2").addClass("active");
   $("#step2>div").addClass("active");
-  $("#step2").addClass("done");
-
 }
 
 function pickup_Bpi() {
   $("#pickUp").hide();
   $('#process_confirmation').show();
+  $("#step2").addClass("done");
   $("#step3").addClass("active");
   $("#step3>div").addClass("active");
   $("#step3").addClass("done");
@@ -1653,8 +1657,7 @@ function handleAddBankInfo(event) {
   var speCharAddAccountName = specialcharacterValidation(field_AccountName1);
   var numAddAccountName = numberValidation(field_AccountName1);
   var numAddAccountNumber = onlyNumberValidate(field_AccountNumber1);
-  var specCharAddBRANCH = specialcharacterValidation(field_Branch1);
-  var numAddBranch = numberValidation(field_Branch1);
+
 
   if (field_AccountName1.length === 0) {
     $("#err_field_AccountName1").text('Field is empty');

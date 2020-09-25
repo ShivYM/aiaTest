@@ -893,9 +893,9 @@
                                                 <div class="col-md-12 form__tags">
                                                     <label for="validationCustom02">What is your email
                                                         address?</label>
-                                                    <input type="text" class="input__box"  maxlength="40"
+                                                    <input type="text" class="input__box"  maxlength="45"
                                                         id="field_emailAddress" value="" 
-                                                        placeholder="Email Address" tabindex="8" onkeypress="removeErr(event) || checkLength(event, 40)" required />
+                                                        placeholder="Email Address" tabindex="8" onkeypress="removeErr(event) || checkLength(event, 45)" required />
                                                     <div id="err_field_emailAddress" class="error">
                                                     </div>
                                                 </div>
@@ -1113,32 +1113,7 @@
                                         <p class="upload_btn_title">Valid Government ID (Front)</p>
                                         <span class="btn btn-file">
                                             Upload<input type="file" id="file_Upload_1">
-                                            <!-- <span id="file_loader_icon_1" class="loader"></span> -->
-                                            <div class="loader">
-                                                <div class="loader-bg">
-                                                    <div class="text"></div>
-                                                </div>        
-                                                <div class="spiner-holder-one animate-0-25-a">
-                                                    <div class="spiner-holder-two animate-0-25-b">
-                                                        <div class="loader-spiner" style=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="spiner-holder-one animate-25-50-a">
-                                                    <div class="spiner-holder-two animate-25-50-b">
-                                                        <div class="loader-spiner"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="spiner-holder-one animate-50-75-a">
-                                                    <div class="spiner-holder-two animate-50-75-b">
-                                                        <div class="loader-spiner"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="spiner-holder-one animate-75-100-a">
-                                                    <div class="spiner-holder-two animate-75-100-b">
-                                                        <div class="loader-spiner"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <span id="file_loader_icon_1" class="loader"></span>
                                             <span id="file_Upload_Tick_1" class="upload_btn_span">&#10004;</span>
                                             <span id="file_upload_cancle_1" class="upload_btn_span">&#10006;</span>
                                         </span>
@@ -1519,7 +1494,7 @@
                                                     <small class="form-text text-muted">
                                                         Please upload any of the following bank account documents: Passbook, Bank Account Statement, or Bank Certification. You may only upload documents that are in .jpg, .pdf formats and must not exceed 2MB in file size.
                                                     </small>
-                                                    <!-- <p class="feedback_label" id="upload_feedback_label"></p> -->
+                                                    <p class="feedback_label" id="upload_feedback_label"></p>
                                                 </div>
                                             </div>
 
@@ -1533,7 +1508,7 @@
                                                                 d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                                         </svg>
                                                     </div>
-                                                    <div id="upload_warning_acct" style="padding: 0 0.9rem;">
+                                                    <div id="upload_warning_acct" style="padding: 0 0.9rem; color: red;">
                                                         Warning: We detected a virus/malware
                                                         in your uploaded documents. Please
                                                         re-upload a clean, virus-free document
@@ -1707,7 +1682,7 @@
                             If your request is approved, you can claim your benefit from any BPI or BPI Family Savings bank branch.
                         </p>
                         <p style="margin: 2rem 0;">
-                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Saving Bank.
+                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Savings Bank.
                         </p>
                         <div class="col-12 col-md-12" style="margin: 0 0 0 1rem 0;">
                             <div class="row">
@@ -1743,13 +1718,6 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 50%; margin: 0 auto 3rem auto;">Ok</button>
         </div>
         </section>
-
-
-       
-    
-
-
-
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -1764,40 +1732,6 @@
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-        function renderProgress(progress) {
-            progress = Math.floor(progress);
-            if(progress<25){
-                var angle = -90 + (progress/100)*360;
-                $(".animate-0-25-b").css("transform","rotate("+angle+"deg)");
-            }
-            else if(progress>=25 && progress<50){
-                var angle = -90 + ((progress-25)/100)*360;
-                $(".animate-0-25-b").css("transform","rotate(0deg)");
-                $(".animate-25-50-b").css("transform","rotate("+angle+"deg)");
-            }
-            else if(progress>=50 && progress<75){
-                var angle = -90 + ((progress-50)/100)*360;
-                $(".animate-25-50-b, .animate-0-25-b").css("transform","rotate(0deg)");
-                $(".animate-50-75-b").css("transform","rotate("+angle+"deg)");
-            }
-            else if(progress>=75 && progress<=100){
-                var angle = -90 + ((progress-75)/100)*360;
-                $(".animate-50-75-b, .animate-25-50-b, .animate-0-25-b")
-                                                    .css("transform","rotate(0deg)");
-                $(".animate-75-100-b").css("transform","rotate("+angle+"deg)");
-            }
-            $(".text").html(progress+"%");
-        }
-        var i=0
-        let cleartime = setInterval(() => {
-         renderProgress(i);
-         if(i === 100) {
-            console.log("cleartime");
-            clearTimeout(cleartime)
-        }
-        i++;
-        }, 30);
-        
     </script>
 </body>
 

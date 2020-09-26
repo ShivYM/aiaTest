@@ -2068,7 +2068,6 @@ file12.onchange = async function (e) {
 
 
 function addBeneficiary(event) {
-    beneficiaryCount++;
     event.preventDefault();
     if (!file1.value || ($('#file_Upload_Tick_1').is(":hidden"))) {
         $('#warning_parent').show();
@@ -2163,7 +2162,6 @@ function addBeneficiary(event) {
 
 
 function addBeneficiaryNew(event) {
-    beneficiaryCount++;
     event.preventDefault();
 
 

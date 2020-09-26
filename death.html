@@ -28,8 +28,8 @@
         if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
         jQuery(function($){ //on document.ready
 			$('#field_DOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
-			$('#field_BeneficiaryDOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
-			$('#field_addBeneficiaryDOB').datepicker({maxDate:-1,changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+			$('#field_BeneficiaryDOB').datepicker({changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
+			$('#field_addBeneficiaryDOB').datepicker({changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
 			$('#field_DOID').datepicker({maxDate:0, changeMonth: true,changeYear:true,dateFormat: 'dd-mm-yy'}).val();
             $('#field_TOA').timepicker({controlType: 'select', oneLine: true, timeInput: true,timeFormat: 'hh:mm tt'});
         })
@@ -2059,27 +2059,26 @@
 																<div id="err_field_BeneficiaryEmployerName" class="error"></div>
 															</div>
 															<div class="col-md-12 form__tags">
-																<div class="col-12 step-trigger">
-																	<label for="field_BeneficiaryPEP">Are you Politically Exposed Person(PEP)?</label>
-																</div>
-																<div class="form-check form-check-inline form-check-pep">
-																	<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" tabindex="22">
-																	<label class="form-check-label" for="inlineRadio1">Yes</label>
-																</div>
-																<div class="form-check form-check-inline form-check-pep">
-																	<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" tabindex="23">
-																	<label class="form-check-label" for="inlineRadio2">No</label>
-																</div>
-																<div id="err_field_BeneficiaryPEP" class="error"></div>
-																<div class="form-check-pep">
-																	<p class="font-weight-normal small-pep-font" style="color: black !important;">A <span class="text-decoration-pep" onclick="showDetails()">Politically Exposed Person (PEP)</span> simply refers to an individual who</p>
-																	<ul class="pep-details">
-																		<li class="font-weight-normal small-pep-font">is or has been entrusted to hold a public or government position.</li>
-																		<li class="font-weight-normal small-pep-font">has a close relationship or is an associate of a fellow PEP</li>
-																		<li class="font-weight-normal small-pep-font">is an immediate family member of a PEP</li>
-																	</ul>
-																</div>
-															</div>
+															<div class="col-12 step-trigger">
+																	<label for="field_Beneficiary_relatives1">Are you or any of your relatives (spouse, partner, parent, child, spouse or partner of child, siblings, grand parent, grand child) a former or current government official (local or foreign)? </label>
+																<select id="field_Beneficiary_relatives1" class="custom-select-container mr-sm-2 select_relatives1" tabindex="17">
+																	<option value="" selected>--</option>
+																	<option value="Yes">Yes</option>
+																	<option value="NO">No</option>
+																</select>
+																<div id="err_field_Beneficiary_relatives1" class="error"></div>
+														
+																	<div class="col-12 step-trigger">
+																		<label class="lable_relatives2" for="field_Beneficiary_relatives2">Are you or any of your relatives (spouse, partner, parent, child, spouse or partner of child, siblings, grand parent, grand child) closely associated with a former or current government official (local or foreign)?</label>
+																	
+																<select id="field_Beneficiary_relatives2" placeholder="Yes/No" class="custom-select-container mr-sm-2 select_relatives2" tabindex="17">
+																	<option value="" selected>--</option>
+																	<option value="Yes">Yes</option>
+																	<option value="No">No</option>
+																</select>
+																<div id="err_field_Beneficiary_relatives2" class="error"></div>
+															  </div>
+														</div>
 															<div class="col-md-12 form__tags" style="margin: 0;">
 																<div class="form-group">
 																	<div class="form-check-accidental">
@@ -2471,7 +2470,7 @@
                                                                 d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                                         </svg>
                                                     </div>
-                                                    <div id="upload_warning_acct" style="padding: 0 0.9rem;">
+                                                    <div id="upload_warning_acct" style="padding: 0 0.9rem; color: red;">
                                                         Warning: We detected a virus/malware
                                                         in your uploaded documents. Please
                                                         re-upload a clean, virus-free document
@@ -4391,28 +4390,25 @@
 														<input type="text" maxlength="250" class="input__box" id="field_addBeneficiaryEmployerName" value="" placeholder="Name of Employer" onkeypress="return checkLength(event, 250)" tabindex="20"  required />
 														<div id="err_field_addBeneficiaryEmployerName" class="error"></div>
 													</div>
-													<div class="col-md-12 form__tags">
-														<div class="col-12 step-trigger">
-															<label for="field_addBeneficiaryPEP">Are you Politically Exposed Person(PEP)?</label>
-														</div>
-														<div class="form-check form-check-inline form-check-pep">
-															<input class="form-check-input" type="radio" name="inlineRadioOptions1" id="field_addBeneficiaryinlineRadio1" value="option1" tabindex="21">
-															<label class="form-check-label" for="inlineRadio1">Yes</label>
-														</div>
-														<div class="form-check form-check-inline form-check-pep">
-															<input class="form-check-input" type="radio" name="inlineRadioOptions1" id="field_addBeneficiaryinlineRadio2" value="option1" tabindex="22">
-															<label class="form-check-label" for="inlineRadio2">No</label>
-														</div>
-														<div id="err_field_addBeneficiaryPEP" class="error"></div>
-														<div class="form-check-pep">
-															<p class="font-weight-lighter small-pep-font">A <span class="text-decoration-pep" onclick="showDetails()">Politically Exposed Person (PEP)</span> simply refers to an individual who</p>
-															<ul class="pep-details">
-																<li class="font-weight-lighter small-pep-font">is or has been entrusted to hold a public or government position.</li>
-																<li class="font-weight-lighter small-pep-font">has a close relationship or is an associate of a fellow PEP</li>
-																<li class="font-weight-lighter small-pep-font">is an immediate family member of a PEP</li>
-															</ul>
-														</div>
-													</div>
+													<div class="col-12 step-trigger">
+														<label for="field_add_Beneficiary_relatives1" style="margin: 1rem 0;">Are you or any of your relatives (spouse, partner, parent, child, spouse or partner of child, siblings, grand parent, grand child) a former or current government official (local or foreign)?</label>
+													<select id="field_addBeneficiary_relatives1" class="custom-select-container mr-sm-2 select_relatives1" tabindex="17">
+														<option value="" selected>--</option>
+														<option value="Yes">Yes</option>
+														<option value="NO">No</option>
+													</select>
+													<div id="err_field_add_Beneficiary_relatives1" class="error"></div>
+														
+													<div class="col-12 step-trigger">
+															<label style="margin: 1rem 0;" for="field_Beneficiary_relatives2">Are you or any of your relatives (spouse, partner, parent, child, spouse or partner of child, siblings, grand parent, grand child) closely associated with a former or current government official (local or foreign)?</label>
+													<select id="field_add_Beneficiary_add_relatives2" placeholder="Yes/No" class="custom-select-container mr-sm-2 select_relatives2" tabindex="17">
+														<option value="" selected>--</option>
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
+													<div id="err_field_add_Beneficiary_relatives2" class="error"></div>
+												   </div>
+											    </div>
 	
 													<div class="col-md-12 form__tags" style="margin-top: 0">
 														<div class="form-group">
@@ -4492,7 +4488,7 @@
                             If your request is approved, you can claim your benefit from any BPI or BPI Family Savings bank Branch.
                         </p>
                         <p style="margin: 2rem 0;">
-                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Saving Bank.
+                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Savings Bank.
                         </p>
                         <div class="col-12 col-md-12" style="margin: 0 0 0 1rem 0;">
                             <div class="row">
@@ -4602,7 +4598,7 @@
 													<path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
 												</svg>
 											</div>
-											<div id="addBeneficiary_upload_warning" style="padding: 0 0.9rem;">Warning: We detected a virus/malware in your uploaded documents. Please re-upload a clean, virus-free document to proceed.</div>
+											<div id="addBeneficiary_upload_warning" style="padding: 0 0.9rem; color: red;">Warning: We detected a virus/malware in your uploaded documents. Please re-upload a clean, virus-free document to proceed.</div>
 										</div>
 									</div>
 								</div>
@@ -4638,7 +4634,7 @@
                             If your request is approved, you can claim your benefit from any BPI or BPI Family Savings bank branch.
                         </p>
                         <p style="margin: 2rem 0;">
-                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Saving Bank.
+                           We will send you an SMS notification confirming the date on when you can claim your benefit as well as Reference code.Please present this Reference Code and one (1) valid, government-issued IDs at any branch of BPI or BPI Family Savings Bank.
                         </p>
                         <div class="col-12 col-md-12" style="margin: 0 0 0 1rem 0;">
                             <div class="row">
@@ -4792,7 +4788,7 @@
                                                                 d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                                         </svg>
                                                     </div>
-                                                    <div id="upload_warning_addBeneficiaryacct" style="padding: 0 0.9rem;">
+                                                    <div id="upload_warning_addBeneficiaryacct" style="padding: 0 0.9rem; color: red;">
                                                         Warning: We detected a virus/malware
                                                         in your uploaded documents. Please
                                                         re-upload a clean, virus-free document

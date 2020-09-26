@@ -1016,16 +1016,14 @@ file1.onchange = async function (e) {
 
         console.log("setting file data : ");
         let accident = {};
-        accident['LIDC001Front'] ;
-        let file1Object = {
-          "BeneficiaryNo": "1",
+        accident['LIDC001Front'] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": "LIDC001",
           "DocumentDescription": "Front copy of doc"
         }
 
-        filesList.push(file1Object);
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`);
         handleFileUpload(formData, fileName);
@@ -1075,16 +1073,14 @@ file2.onchange = async function (e) {
         let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
         let accident = {};
-        accident['LIDC001Back'] 
-        let file2Object = {
-          "BeneficiaryNo": "1",
+        accident['LIDC001Back'] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": "LIDC001",
           "DocumentDescription": "Back copy of doc"
         }
 
-        filesList.push(file2Object);
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1132,16 +1128,14 @@ file3.onchange = async function (e) {
         let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
         let accident = {};
-        accident[docType] 
-        let file3Object = {
-          "BeneficiaryNo": "1",
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": docType,
           "DocumentDescription": "Attending Physician’s Statement"
         }
 
-        filesList.push(file3Object);
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1190,16 +1184,14 @@ file4.onchange = async function (e) {
         let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
         let accident = {};
-        accident[docType] 
-        let file4Object = {
-          "BeneficiaryNo": "1",
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": docType,
           "DocumentDescription": "Police or Narration Report"
         }
 
-        filesList.push(file4Object);
+        filesList.push(accident);
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
         handleFileUpload(formData, fileName);
@@ -1248,16 +1240,14 @@ file5.onchange = async function (e) {
         let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
         let accident = {};
-        accident[docType] 
-        let file5Object = {
-          "BeneficiaryNo": "1",
+        accident[docType] = {
           "Filename": `${fileName}.pdf`,
           "DocType": "PDF",
           "DocTypeCode": docType,
           "DocumentDescription": "Police or Narration Report"
         }
 
-        filesList.push(file5Object);
+        filesList.push(accident);
 
         const formData = new FormData()
         formData.append('file', file, fileName + `.${ext}`)
@@ -1591,7 +1581,7 @@ function handleAccountInfo(event) {
     $("#step2").addClass("done");
     $("#step3").addClass("active");
     $("#step3>div").addClass("active");
-    $("#step3").addClass("done");
+    /* $("#step3").addClass("done"); */
     $("#account_details").hide();
     $("#process_confirmation").show();
     console.log("Data -> ", data);
@@ -1646,7 +1636,7 @@ function pickup_Bpi() {
   $("#step2").addClass("done");
   $("#step3").addClass("active");
   $("#step3>div").addClass("active");
-  $("#step3").addClass("done");
+ /*  $("#step3").addClass("done"); */
 }
 
 function addBank(event) {

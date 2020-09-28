@@ -38,7 +38,7 @@ let finalPayload = {};
 let BeneficiaryList = [];
 let BankDetailsList = [];
 let FilesInformation = {};
-let FileList = [];
+let filesList = [];
 let beneficiaryCount = 1;
 let docType, tranType;
 basicInformation["WebReferenceNumber"] = referenceNumber;

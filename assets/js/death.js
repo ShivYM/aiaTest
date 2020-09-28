@@ -2322,7 +2322,11 @@ function buttonSubmitClicked(event) {
     finalPayload["InsuredInformation"] = InsuredInformation;
     finalPayload["BeneficiaryList"] = BeneficiaryList;
     finalPayload["BankDetailsList"] = BankDetailsList;
-    finalPayload["FilesInformation"] = FilesInformation
+    finalPayload["FilesInformation"] = FilesInformation;
+    finalPayload["referenceNumber"] = referenceNumber;
+
+    console.log("final payload : ")
+    console.log(finalPayload)
     window.parent.postMessage(JSON.stringify({
         event_code: 'ym-client-event', data: JSON.stringify({
           event: {
@@ -2398,7 +2402,11 @@ function addBeneficiaryButtonClicked(event) {
     finalPayload["InsuredInformation"] = InsuredInformation;
     finalPayload["BeneficiaryList"] = BeneficiaryList;
     finalPayload["BankDetailsList"] = BankDetailsList;
-    finalPayload["FilesInformation"] = FilesInformation
+    finalPayload["FilesInformation"] = FilesInformation;
+    finalPayload["referenceNumber"] = referenceNumber;
+
+    console.log("final payload : ")
+    console.log(finalPayload)
     window.parent.postMessage(JSON.stringify({
         event_code: 'ym-client-event', data: JSON.stringify({
           event: {

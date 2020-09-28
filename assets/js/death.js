@@ -43,7 +43,7 @@ let beneficiaryCount = 1;
 let docType, tranType;
 basicInformation["WebReferenceNumber"] = referenceNumber;
 basicInformation["CompanyCode"] = "PAL";
-basicInformation["Claim Type "] = "Death";
+basicInformation["ClaimType"] = "Death";
 // basicInformation["CauseOfLoss"] = "Accident";
 
 form.addEventListener('submit', handleForm);
@@ -1457,11 +1457,11 @@ file1.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1513,11 +1513,11 @@ file2.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1568,11 +1568,11 @@ file3.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1623,11 +1623,11 @@ file4.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1678,11 +1678,11 @@ file5.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1733,11 +1733,11 @@ file6.onchange = async function (e) {
                 let fileName = referenceNumber + "_" + docType + "_" + tranType;
 
                 let accident = {};
-                accident['BeneficiaryNo']
+                accident['BeneficiaryNo'] = beneficiaryCount,
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Death certificate of the deceased"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Death certificate of the deceased"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -1869,9 +1869,9 @@ file9.onchange = async function (e) {
                 let accident = {};
                 accident['BeneficiaryNo'] = beneficiaryCount
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Claimants valid Government ID (Front)"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Claimants valid Government ID (Front)"
 
 
                 filesList.push(accident);
@@ -1925,9 +1925,9 @@ file10.onchange = async function (e) {
                 let accident = {};
                 accident['BeneficiaryNo'] = beneficiaryCount
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Claimants valid Government ID (Back)"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Claimants valid Government ID (Back)"
 
 
                 filesList.push(accident);
@@ -1982,9 +1982,9 @@ file11.onchange = async function (e) {
                 let accident = {};
                 accident['BeneficiaryNo'] = beneficiaryCount
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Marriage Contract"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Marriage Contract"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -2037,9 +2037,9 @@ file12.onchange = async function (e) {
                 let accident = {};
                 accident['BeneficiaryNo'] = beneficiaryCount
                 accident['Filename'] = `${fileName}.pdf`,
-                    accident['DocType'] = "PDF",
-                    accident['DocTypeCode'] = docType,
-                    accident['DocumentDescription'] = "Marriage Contract"
+                accident['DocType'] = "PDF",
+                accident['DocTypeCode'] = docType,
+                accident['DocumentDescription'] = "Marriage Contract"
 
                 filesList.push(accident);
                 const formData = new FormData()
@@ -2329,12 +2329,12 @@ function buttonSubmitClicked(event) {
     console.log(finalPayload)
     window.parent.postMessage(JSON.stringify({
         event_code: 'ym-client-event', data: JSON.stringify({
-          event: {
-            code: "finalEvent",
-            data: JSON.stringify(finalPayload)
-          }
+            event: {
+                code: "finalEvent",
+                data: JSON.stringify(finalPayload)
+            }
         })
-      }), '*');
+    }), '*');
 
     console.log('upload data --> ', upload_data);
 }
@@ -2409,12 +2409,12 @@ function addBeneficiaryButtonClicked(event) {
     console.log(finalPayload)
     window.parent.postMessage(JSON.stringify({
         event_code: 'ym-client-event', data: JSON.stringify({
-          event: {
-            code: "finalEvent",
-            data: JSON.stringify(finalPayload)
-          }
+            event: {
+                code: "finalEvent",
+                data: JSON.stringify(finalPayload)
+            }
         })
-      }), '*');
+    }), '*');
 
 }
 
@@ -2517,7 +2517,7 @@ function handleAccountInfo(event) {
             beneficiaryAccount["AccountCurrency"] = $("select#from_currency option").filter(":selected").val(),
 
             BankDetailsList.push(beneficiaryAccount);
-            $("#step1").addClass("done");
+        $("#step1").addClass("done");
         $("#step2").addClass("active");
         $("#step2>div").addClass("active");
         $('#account_details').hide();

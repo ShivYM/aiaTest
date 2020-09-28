@@ -1193,6 +1193,7 @@ function handleForm(event) {
             beneficiary["Relationship"] = field_BeneficiaryRelationToDeceased,
             beneficiary["DocumentFolder"] = `/home/accounts/Claims/${referenceNumber}`,
             beneficiary["PayoutOption"] = "CTA"
+            beneficiary["Occupation"] = field_BenificiaryOccupation
         BeneficiaryList.push(beneficiary);
 
         const data = {

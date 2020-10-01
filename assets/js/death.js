@@ -44,7 +44,6 @@ let docType, tranType;
 basicInformation["WebReferenceNumber"] = referenceNumber;
 basicInformation["CompanyCode"] = "PAL";
 basicInformation["ClaimType"] = "Death";
-// basicInformation["CauseOfLoss"] = "Accident";
 
 form.addEventListener('submit', handleForm);
 death__form_addBeneficiary.addEventListener('submit', handleFormAddBeneficiary);
@@ -1167,35 +1166,6 @@ function handleForm(event) {
 
     if (field_firstName.length !== 0 && field_middleName.length !== 0 && field_lastName.length !== 0 && field_DOB.length !== 0 && field_DOID.length !== 0 && field_NatureLoss.length !== 0 && field_BeneficiaryFirstName.length !== 0 && field_BeneficiaryMiddleName.length !== 0 && field_BeneficiaryLastName.length !== 0 && field_BeneficiaryMobileNum.length == 10 && field_BeneficiaryEmailAddress.length !== 0 && field_BeneficiaryHomeAddress.length !== 0 && field_BeneficiaryDOB.length !== 0 && field_BeneficiaryPOB.length !== 0 && field_BeneficiaryNationality.length !== 0 && field_BeneficiarySex.length !== 0 && field_BeneficiaryRelationToDeceased.length !== 0 && field_BenificiaryOccupation.length !== 0 && field_BeneficiaryEmployerName.length !== 0 && $('#invalidCheck_basic').is(':checked') && $('#invalidCheck_privacy').is(':checked') && validateEmail(field_BeneficiaryEmailAddress) && (specFirstName == false) && (specMiddleName == false) && (specLastName == false) && (numFirstName == false) && (numMiddleName == false) && (numLastName == false) && (speciBeniFirstName == false) && (numBeniFirstName == false) && (numberMobile == true) && (speciBeniMiddleName == false) && (numBeniMiddleName == false) && (speciBeniLastName == false) && (numBeniLastName == false) && (futDOB == true) && (futExistDOB == true) && (futDOID == true) && (numSuffix == false) && (specSuffix == false) && field_Beneficiary_relatives1.length !== 0 && field_Beneficiary_relatives2.length !== 0 && (comapareDates == true)) {
 
-        InsuredInformation["FirstName"] = field_firstName;
-        InsuredInformation["MiddleName"] = field_middleName;
-        InsuredInformation["LastName"] = field_lastName;
-        InsuredInformation["Suffix"] = field_lastName_Suffix;
-        InsuredInformation["DateOfBirth"] = field_DOB;
-        InsuredInformation["InsuredsDeath"] = field_DOID;
-
-        basicInformation["CauseOfLoss"] = field_NatureLoss;
-
-        let beneficiary = {};
-
-        beneficiary["BeneficiaryNo"] = beneficiaryCount,
-            beneficiary["FirstName"] = field_BeneficiaryFirstName,
-            beneficiary["MiddleName"] = field_BeneficiaryMiddleName,
-            beneficiary["LastName"] = field_BeneficiaryLastName,
-            beneficiary["DateOfBirth"] = field_BeneficiaryDOB,
-            beneficiary["CountryCode"] = $("select#field_BeneficiaryMobileNumberSelect option").filter(":selected").val(),
-            beneficiary["PhoneNumber"] = field_BeneficiaryMobileNum,
-            beneficiary["EmailAddress"] = field_BeneficiaryEmailAddress,
-            beneficiary["HomeAddress"] = field_BeneficiaryHomeAddress,
-            beneficiary["PlaceOfBirth"] = field_BeneficiaryPOB,
-            beneficiary["Nationality"] = field_BeneficiaryNationality,
-            beneficiary["Sex"] = $("select#field_BeneficiarySex option").filter(":selected").val(),
-            beneficiary["Relationship"] = field_BeneficiaryRelationToDeceased,
-            beneficiary["DocumentFolder"] = `/home/accounts/Claims/${referenceNumber}`,
-            beneficiary["PayoutOption"] = "CTA"
-            beneficiary["Occupation"] = field_BenificiaryOccupation
-        BeneficiaryList.push(beneficiary);
-
         const data = {
             field_firstName,
             field_middleName,
@@ -1219,6 +1189,37 @@ function handleForm(event) {
             basic_checkbox: $('#invalidCheck_basic').is(':checked'),
             privacy_checkbox: $('#invalidCheck_privacy').is(':checked')
         }
+
+        InsuredInformation["FirstName"] = field_firstName;
+        InsuredInformation["MiddleName"] = field_middleName;
+        InsuredInformation["LastName"] = field_lastName;
+        InsuredInformation["Suffix"] = field_lastName_Suffix;
+        InsuredInformation["DateOfBirth"] =  field_DOB.split('-')[2]+"/"+field_DOB.split('-')[1]+"/"+field_DOB.split('-')[0];;
+        InsuredInformation["InsuredsDeath"] = field_DOID.split('-')[2]+"/"+field_DOID.split('-')[1]+"/"+field_DOID.split('-')[0];
+
+        basicInformation["CauseOfLoss"] = field_NatureLoss;
+
+        let beneficiary = {};
+
+        beneficiary["BeneficiaryNo"] = beneficiaryCount,
+            beneficiary["FirstName"] = field_BeneficiaryFirstName,
+            beneficiary["MiddleName"] = field_BeneficiaryMiddleName,
+            beneficiary["LastName"] = field_BeneficiaryLastName,
+            beneficiary["DateOfBirth"] = field_BeneficiaryDOB.split('-')[2]+"/"+field_BeneficiaryDOB.split('-')[1]+"/"+field_BeneficiaryDOB.split('-')[0],
+            beneficiary["CountryCode"] = $("select#field_BeneficiaryMobileNumberSelect option").filter(":selected").val(),
+            beneficiary["PhoneNumber"] = field_BeneficiaryMobileNum,
+            beneficiary["EmailAddress"] = field_BeneficiaryEmailAddress,
+            beneficiary["HomeAddress"] = field_BeneficiaryHomeAddress,
+            beneficiary["PlaceOfBirth"] = field_BeneficiaryPOB,
+            beneficiary["Nationality"] = field_BeneficiaryNationality,
+            beneficiary["Sex"] = $("select#field_BeneficiarySex option").filter(":selected").val(),
+            beneficiary["Relationship"] = field_BeneficiaryRelationToDeceased,
+            beneficiary["DocumentFolder"] = `/home/accounts/Claims/${referenceNumber}`,
+            beneficiary["PayoutOption"] = "CTA"
+            beneficiary["GovernmentOfficial"] = $("select#field_Beneficiary_relatives1 option").filter(":selected").val(),
+            beneficiary["GovernmentOfficialRelative"] = $("select#field_Beneficiary_relatives2 option").filter(":selected").val(),
+        beneficiary["Occupation"] = field_BenificiaryOccupation
+        BeneficiaryList.push(beneficiary);
 
         dataReset("field_firstName", "field_firstName", "field_middleName", "field_lastName", "field_lastName_Suffix", "field_DOB", "field_DOID", "field_BeneficiaryFirstName", "field_BeneficiaryMiddleName", "field_BeneficiaryLastName", "field_BeneficiaryMobileNum", "field_BeneficiaryEmailAddress", "field_BeneficiaryHomeAddress", "field_BeneficiaryDOB", "field_BeneficiaryPOB", "field_BeneficiaryNationality", "field_BeneficiarySex", "field_BeneficiaryRelationToDeceased", "field_Beneficiary_relatives1", "field_Beneficiary_relatives2")
 
@@ -2514,7 +2515,7 @@ function handleAccountInfo(event) {
             beneficiaryAccount["BankName"] = field_Bank,
             beneficiaryAccount["BankBranch"] = field_Branch,
             beneficiaryAccount["AccountNumber"] = field_AccountNumber,
-            beneficiaryAccount["AccountName"] = field_AccountNumber,
+            beneficiaryAccount["AccountName"] = field_AccountName,
             beneficiaryAccount["AccountCurrency"] = $("select#from_currency option").filter(":selected").val(),
 
             BankDetailsList.push(beneficiaryAccount);

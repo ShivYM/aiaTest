@@ -20,6 +20,8 @@ let referenceNumber = url.searchParams.get('refNumber');
 let uid = url.searchParams.get('sender');
 let botId = url.searchParams.get('botId');
 
+var currSeconds = 0; 
+
 $('#privacy_consent_1').prop('checked', true);
 $('#privacy_consent_2').prop('checked', true);
 
@@ -131,7 +133,23 @@ $(document).ready(function (event) {
   disableFutureDates();
   disableFutureDatesDOB();
   setCountryCode();
+  let idleInterval = setInterval(timerIncrement, 1000); 
+  $(this).mousemove(resetTimer); 
+  $(this).keypress(resetTimer); 
+
 });
+
+function resetTimer() { 
+  currSeconds = 0; 
+} 
+
+function timerIncrement() { 
+  currSeconds = currSeconds + 1; 
+  if(currSeconds == 1800) {
+      window.open('http://www.philamlife.com', '_blank');
+  }
+} 
+
 
 
 /* Check Date should not be in future */
@@ -206,13 +224,16 @@ function disableFutureDatesDOB() {
   var dtToday = new Date();
   var month = dtToday.getMonth() + 1;
   var day = dtToday.getDate();
-  var dobDate = day - 1;
+  var dobdate = day-1
   var year = dtToday.getFullYear();
   if (month < 10)
     month = '0' + month.toString();
   if (day < 10)
     day = '0' + day.toString();
-  var maxDate = year + '-' + month + '-' + dobDate;
+  var maxDate = year + '-' + month + '-' + dobdate;
+  if( day <= 10) {
+      maxDate = year + '-' + month + '-' + '0'+ dobdate;
+  } 
   $('#field_DOB').attr('max', maxDate);
 }
 

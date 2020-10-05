@@ -84,9 +84,9 @@
 								<div class="md-step-bar-right"></div>
 							</div>
 							<div id="step3" class="md-step">
-								<div class="md-step-circle"><span>3</span>
+								<div class="md-step-circle" id="step3_circle"><span id="step3_span">3</span>
 								</div>
-								<div class="md-step-title">Get your reference number</div>
+								<div class="md-step-title" id="step3_reference">Get your reference number</div>
 								<div class="md-step-bar-left"></div>
 								<div class="md-step-bar-right"></div>
 							</div>
@@ -1252,8 +1252,10 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" onclick="buttonSubmitClicked(event)" class="btn submit__btn"
-                                        style="width: 50%;">Submit</button>
+                                    <div class="col-md-12" style="display: flex; justify-content: flex-end;">
+                                        <a href="#" onclick="goBack()" style="align-self: flex-end; color: #b8123e; padding: 0 1rem; margin: 0 0">Back</a>
+                                        <button style="width: 50%;" type="submit" onclick="buttonSubmitClicked(event)" class="btn submit__btn" >Submit</button>
+                                    </div>
                                 </div>
                                 <!-- <div class="col-12 col-md-12">
 									<div class="row">
@@ -1371,11 +1373,11 @@
                             </div>
                             <div class="col-3 time_container">
                                 <div>
-                                    <div class="time_duration reference">
+                                   <!--  <div class="time_duration reference">
                                         <div class="white">Reference Number</div>
                                         <div class="font-weight-bold white">89766035</div>
                                     </div>
-                                    <br />
+                                    <br /> -->
                                     <div class="time_duration">
                                         <div>Turnaround Time</div>
                                         <div class="font-weight-bold">1-2 working days</div>
@@ -1525,8 +1527,37 @@
                                                    <!--  <button type="submit" onclick="addBank(event)" class="btn" style="margin: 3.5rem 0 0 0;">CHANGE BANK ACCOUNT</button> -->
                                                 </div>
                                                 <div class="col-12 col-md-6" style="display: flex; justify-content: flex-end;"> 
+                                                    <a href="#" onclick="goBack1()" id="back_btn1"  style="align-self: flex-end; color: #b8123e; padding: 0 1rem; margin: 55px 0.5rem;">Back</a>
                                                     <div style="width: 50%;">
-                                                        <button type="submit" class="btn" style="width: 100%; margin: 3rem 0;">Submit</button>
+                                                        <button type="submit" id="submit9" class="btn" style="width: 100%; margin: 3rem 0;" >Submit
+                                                        
+                                                            <div class="loader1" id="file_loader_icon_9">
+                                                                <div class="loader-bg">
+                                                                    <div class="text"></div>
+                                                                </div>        
+                                                                <div class="spiner-holder-one animate-0-25-a">
+                                                                    <div class="spiner-holder-two animate-0-25-b">
+                                                                        <div class="loader-spiner"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="spiner-holder-one animate-25-50-a">
+                                                                    <div class="spiner-holder-two animate-25-50-b">
+                                                                        <div class="loader-spiner"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="spiner-holder-one animate-50-75-a">
+                                                                    <div class="spiner-holder-two animate-50-75-b">
+                                                                        <div class="loader-spiner"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="spiner-holder-one animate-75-100-a">
+                                                                    <div class="spiner-holder-two animate-75-100-b">
+                                                                        <div class="loader-spiner"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1692,6 +1723,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6" style="display: flex; justify-content: flex-end;"> 
+                                    <a href="#" onclick="goBackPickup()" id="back_btn1" style="align-self: flex-end; color: #b8123e; padding: 0 1rem; margin: 0 0.5rem 0.7rem 0.5rem;">Back</a>
                                     <div  class="popup">
                                         <button type="submit"  onclick="pickup_Bpi()" class="btn" style="width: 100%;">YES, I WOULD LIKE TO PICK UP MY BENEFIT THROUGH BPI</button>
                                     </div>
